@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Hough Hawks">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#07111f">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Hough Hawks – Road Trip USA</title>
+<style>
+:root{--bg:#07111f;--card:#102038;--card2:#142a49;--gold:#f8c646;--orange:#f26a21;--text:#f7fafc;--muted:#aebbd0;--line:rgba(255,255,255,.13);--shadow:0 20px 55px rgba(0,0,0,.42)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:radial-gradient(circle at top left,rgba(242,106,33,.22),transparent 34%),radial-gradient(circle at top right,rgba(248,198,70,.16),transparent 32%),linear-gradient(180deg,#07111f 0%,#0b1728 55%,#07111f 100%);color:var(--text);padding:env(safe-area-inset-top) 14px env(safe-area-inset-bottom)}
+.app{max-width:860px;margin:0 auto;padding:14px 0 34px}.screen{display:none;animation:fade .22s ease}.screen.active{display:block}@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.splash{position:fixed;inset:0;z-index:50;background:linear-gradient(180deg,#07111f,#10284c);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:.65s ease}.splash.hide{opacity:0;pointer-events:none}
+.logo{width:154px;height:154px;border-radius:34px;background:#0d1f36;border:4px solid var(--gold);display:grid;place-items:center;box-shadow:var(--shadow);font-size:70px;animation:pulse 1.3s ease-in-out infinite alternate}@keyframes pulse{from{transform:scale(.98)}to{transform:scale(1.03)}}
+.splash h1{margin:22px 0 5px;font-size:30px}.splash p{margin:0;color:var(--muted);font-weight:700}
+.card{background:linear-gradient(160deg,rgba(20,42,73,.94),rgba(16,32,56,.94));border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:18px;margin:14px 0}
+.top{min-height:280px;position:relative;overflow:hidden;background:radial-gradient(circle at 20% 10%,rgba(248,198,70,.18),transparent 33%),linear-gradient(160deg,#122b4b,#091322)}
+.badges{display:flex;justify-content:space-between;gap:10px}.badge{padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid var(--line);color:var(--muted);font-size:13px;font-weight:850}
+h1{margin:18px 0 4px;font-size:36px;line-height:1;letter-spacing:-.8px}.sub{margin:0;color:var(--muted);font-size:16px}.muted{color:var(--muted)}
+.garageScene{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px}.sceneBox{border-radius:22px;background:rgba(255,255,255,.075);border:1px solid var(--line);padding:13px;min-height:150px;overflow:hidden}
+.coachImg{width:100%;height:190px;object-fit:cover;border-radius:18px;object-position:center}.coachFallback{height:190px;display:grid;place-items:center;font-size:78px;border-radius:18px;background:#07111f}
+.truck{height:190px;border-radius:18px;background:linear-gradient(180deg,#203c61,#07111f);position:relative;overflow:hidden}.truck:before{content:"";position:absolute;left:17%;right:17%;bottom:44px;height:46px;background:#0f3765;border-radius:20px 20px 8px 8px;border:2px solid rgba(255,255,255,.15)}.truck:after{content:"";position:absolute;left:9%;right:9%;bottom:30px;height:24px;background:#0a1828;border-radius:7px}
+.wheel{position:absolute;bottom:17px;width:38px;height:38px;border-radius:50%;background:#111;border:5px solid #333}.w1{left:23%}.w2{right:23%}.road{position:absolute;left:0;right:0;bottom:0;height:28px;background:#111a25}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}button{appearance:none;border:0;color:white;border-radius:20px;min-height:72px;padding:15px 13px;background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);font-size:16px;font-weight:850;text-align:left;box-shadow:0 10px 24px rgba(0,0,0,.22);touch-action:manipulation}button:active{transform:scale(.985)}button.gold{background:linear-gradient(160deg,#805d08,#2b2109)}button.orange{background:linear-gradient(160deg,#8b3510,#28140c)}.wide{grid-column:1/-1}.back{min-height:auto;padding:11px 12px;border-radius:15px;font-size:14px;margin-bottom:10px}
+.journalPage{background:#f4ead5;color:#2b241a;border-radius:18px;padding:18px;font-family:Georgia,serif;line-height:1.5;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}.journalPage h3{margin-top:0;color:#1d160f}.shelf{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.item{padding:14px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.075)}.item.lock{opacity:.45;filter:grayscale(1)}
+.map{height:280px;border-radius:24px;background:linear-gradient(160deg,#173b5d,#0a1628);position:relative;overflow:hidden;border:1px solid var(--line)}.pin{position:absolute;transform:translate(-50%,-50%);padding:8px 10px;border-radius:999px;background:var(--gold);color:#0b1628;font-weight:900;font-size:12px;box-shadow:0 8px 22px rgba(0,0,0,.35)}.line{position:absolute;height:4px;background:rgba(248,198,70,.7);transform-origin:left center;border-radius:99px}
+.toast{position:fixed;left:14px;right:14px;bottom:18px;margin:auto;max-width:780px;padding:14px 16px;border-radius:18px;background:rgba(8,16,29,.96);border:1px solid var(--line);display:none;z-index:20;font-weight:850}.plaque,.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:12px}
+@media(max-width:600px){.garageScene{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}h1{font-size:33px}}
+</style>
+</head>
+<body>
+<div id="splash" class="splash"><div class="logo">🦅</div><h1>HOUGH HAWKS</h1><p>Chapter One · The First Mile</p></div>
+<div class="app">
+<section id="home" class="screen active">
+  <div class="card top">
+    <div class="badges"><span class="badge">🦅 Hough Hawks HQ</span><span class="badge" id="saveBadge">Saved</span></div>
+    <h1>Ben's Locker Room</h1>
+    <p class="sub" id="welcome">Morning, Ben. I've checked the map... America is still there.</p>
+    <div class="garageScene">
+      <div class="sceneBox"><img src="coach-ben.png" alt="Coach Ben concept" class="coachImg"><div class="muted" style="margin-top:8px;font-weight:800;">Coach Ben</div></div>
+      <div class="sceneBox"><div class="truck"><div class="wheel w1"></div><div class="wheel w2"></div><div class="road"></div></div><div class="muted" style="margin-top:8px;font-weight:800;">The truck is waiting.</div></div>
+    </div>
+  </div>
+  <div class="grid">
+    <button class="gold wide" onclick="startEngine()">🚚 Start the Engine<br><span class="muted">Begin The First Mile</span></button>
+    <button onclick="show('journal')">📖 Read Journal<br><span class="muted">The journey so far</span></button>
+    <button onclick="show('map')">🗺️ Wall Map<br><span class="muted">Cincinnati awaits</span></button>
+    <button onclick="show('backpack')">🎒 Backpack<br><span class="muted">Photos and souvenirs</span></button>
+    <button onclick="show('hq')">🏠 Hough Hawks HQ<br><span class="muted">Garage and shelf</span></button>
+    <button class="orange" onclick="show('settings')">⚙️ Settings<br><span class="muted">Save and reset</span></button>
+  </div>
+  <div class="plaque">Built because we care.</div>
+</section>
+<section id="journey" class="screen"><div class="card"><button class="back" onclick="show('home')">← Back to HQ</button><h2>🚚 The First Mile</h2><p class="muted">The truck door closes. Coach Ben checks his watch. The keys turn.</p><div class="map"><div class="line" style="left:20%;top:55%;width:42%;transform:rotate(-10deg);"></div><div class="pin" style="left:20%;top:55%;">HQ</div><div class="pin" style="left:64%;top:47%;">Cincinnati</div></div><div class="grid" style="margin-top:12px"><button class="gold" onclick="arriveCincinnati()">🏈 Drive to Cincinnati<br><span class="muted">Bengals country</span></button><button onclick="addJournal('scenic')">🏞️ Take the scenic route<br><span class="muted">No hurry</span></button></div></div></section>
+<section id="journal" class="screen"><div class="card"><button class="back" onclick="show('home')">← Back</button><h2>📖 Travel Journal</h2><div class="journalPage" id="journalText"></div></div></section>
+<section id="map" class="screen"><div class="card"><button class="back" onclick="show('home')">← Back</button><h2>🗺️ Wall Map</h2><p class="muted">The first pin is already on the map.</p><div class="map"><div class="line" style="left:20%;top:55%;width:42%;transform:rotate(-10deg);"></div><div class="pin" style="left:20%;top:55%;">Hough Hawks HQ</div><div class="pin" style="left:64%;top:47%;">Cincinnati</div><div class="pin" style="left:58%;top:65%;background:#aebbd0;">Gettysburg</div><div class="pin" style="left:42%;top:44%;background:#aebbd0;">Rockies</div><div class="pin" style="left:18%;top:70%;background:#aebbd0;">California</div></div></div></section>
+<section id="backpack" class="screen"><div class="card"><button class="back" onclick="show('home')">← Back</button><h2>🎒 Backpack</h2><p class="muted">This is where memories collect. Not points. Memories.</p><div class="shelf" id="souvenirList"></div></div></section>
+<section id="hq" class="screen"><div class="card"><button class="back" onclick="show('home')">← Back</button><h2>🏠 Hough Hawks HQ</h2><p class="muted">The garage is quiet. The truck is ready. The shelf has space for everything America leaves behind.</p><div class="shelf"><div class="item">🚚 <b>The Truck</b><br><span class="muted">Parked: <span id="parkedAt">HQ</span></span></div><div class="item">⌚ <b>Watch</b><br><span class="muted">Coach checks it before each journey.</span></div><div class="item">🍵 <b>Tea</b><br><span class="muted">America may not understand. Coach does.</span></div><div class="item">🦦 <b>Otter Sketch</b><br><span class="muted">Pinned beside the map.</span></div></div></div></section>
+<section id="settings" class="screen"><div class="card"><button class="back" onclick="show('home')">← Back</button><h2>⚙️ Settings</h2><p class="muted">Progress saves automatically on this device.</p><div class="grid"><button onclick="save()">💾 Force Save</button><button class="orange" onclick="resetAll()">Reset Journey</button></div></div></section>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));}
+setTimeout(()=>document.getElementById('splash').classList.add('hide'),1300);
+const KEY='houghHawksChapterOneV001';
+let state={started:false,location:'Hough Hawks HQ',journal:['<h3>Before every great journey...</h3><p>Someone turns the key.</p><p>The next page is waiting.</p>'],souvenirs:{},visits:0};
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s)state={...state,...s,souvenirs:{...state.souvenirs,...(s.souvenirs||{})}};}catch(e){}}
+function save(){localStorage.setItem(KEY,JSON.stringify(state));document.getElementById('saveBadge').textContent='Saved';}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2200);}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');render();window.scrollTo({top:0,behavior:'smooth'});}
+function startEngine(){if(!state.started){state.started=true;state.journal.push('<h3>Day 1 · The First Mile</h3><p>The keys turned for the first time today.</p><p>Coach Ben checked his watch, put the journal on the passenger seat, and smiled.</p><p>America did not need to be crossed in one day. One mile would do.</p>');toast('The engine starts.');}else{toast('Good to see you again. Shall we carry on?');}save();show('journey');}
+function arriveCincinnati(){state.location='Cincinnati';state.visits++;state.souvenirs.cincinnati=true;state.journal.push('<h3>Cincinnati</h3><p>First proper stop: Bengals country.</p><p>Before the Hough Hawks write their own history, they pay respect to the team that started the spark.</p><p>Souvenir collected: Bengals Heritage Ticket.</p>');toast('Arrived in Cincinnati. Souvenir added.');save();render();}
+function addJournal(type){if(type==='scenic'){state.journal.push('<h3>The Scenic Route</h3><p>Coach took the longer road today.</p><p>Not because it was faster.</p><p>Because sometimes the long way is the whole point.</p>');toast('Journal updated.');}save();render();}
+function render(){document.getElementById('welcome').textContent=state.started?'Good to see you again, Ben. Shall we carry on?':"Morning, Ben. I've checked the map... America is still there.";document.getElementById('parkedAt').textContent=state.location;document.getElementById('journalText').innerHTML=state.journal.join('<hr style="border:0;border-top:1px solid rgba(0,0,0,.15);margin:18px 0;">');const items=[['cincinnati','🎟️','Bengals Heritage Ticket','Collected in Cincinnati.'],['gettysburg','⚔️','Gettysburg Field Note','Coming in a future chapter.'],['rockies','🏔️','Rockies Postcard','The road is not open yet.'],['california','🌉','California Highway Pin','One day.']];document.getElementById('souvenirList').innerHTML=items.map(i=>'<div class="item '+(state.souvenirs[i[0]]?'':'lock')+'">'+i[1]+' <b>'+i[2]+'</b><br><span class="muted">'+i[3]+'</span></div>').join('');}
+function resetAll(){if(confirm('Reset this test journey on this device?')){localStorage.removeItem(KEY);location.reload();}}
+load();render();save();
+</script>
+</body>
+</html>
