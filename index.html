@@ -7,12 +7,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Hough Hawks – Road Trip USA V0.14</title>
+<title>Hough Hawks – Road Trip USA V0.15</title>
 <style>
-:root{
-  --gold:#f8c646;--text:#f7fafc;--muted:#b9c6d7;--line:rgba(255,255,255,.16);
-  --panel:rgba(7,17,31,.82);--panel2:rgba(15,29,50,.86);--shadow:0 22px 65px rgba(0,0,0,.52);
-}
+:root{--gold:#f8c646;--text:#f7fafc;--muted:#b9c6d7;--line:rgba(255,255,255,.16);--panel:rgba(7,17,31,.82);--shadow:0 22px 65px rgba(0,0,0,.52)}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;background:#07111f;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;overflow:hidden}
 #app{height:100dvh;position:relative;overflow:hidden;background:#07111f}
@@ -21,21 +18,20 @@ html,body{height:100%;margin:0;background:#07111f;color:var(--text);font-family:
 body.rain .garage:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(110deg,rgba(255,255,255,.10) 0 1px,transparent 1px 15px);opacity:.13;animation:rain .9s linear infinite;pointer-events:none}@keyframes rain{from{transform:translateY(-12px)}to{transform:translateY(12px)}}
 .intro{position:fixed;inset:0;background:#07111f;z-index:100;display:flex;align-items:center;justify-content:center;text-align:center;transition:.7s}.intro.hide{opacity:0;pointer-events:none}
 .crest{width:145px;height:145px;border:4px solid var(--gold);border-radius:34px;margin:0 auto 20px;display:grid;place-items:center;font-size:70px;background:#0d1f36;box-shadow:var(--shadow)}
-.top{position:absolute;left:22px;right:22px;top:18px;z-index:30;display:grid;grid-template-columns:270px 1fr 170px;gap:18px;align-items:start}
+.top{position:absolute;left:18px;right:18px;top:16px;z-index:30;display:grid;grid-template-columns:150px 1fr 90px;gap:12px;align-items:start}
 button{appearance:none;border:0;border-radius:18px;color:white;background:linear-gradient(160deg,#152a49,#101d31);border:1px solid var(--line);padding:13px 14px;min-height:58px;font-weight:900;font-size:15px;text-align:left;box-shadow:0 8px 20px rgba(0,0,0,.24);cursor:pointer}
 button.gold{background:linear-gradient(160deg,#805d08,#2b2109);border-color:rgba(248,198,70,.48)}
 button.small{min-height:auto;padding:10px 12px;border-radius:999px;font-size:13px;text-align:center}
-.coach{background:rgba(7,17,31,.72);border:1px solid var(--line);border-radius:22px;padding:13px 16px;box-shadow:var(--shadow);line-height:1.28;max-width:620px}
+.coach{background:rgba(7,17,31,.72);border:1px solid var(--line);border-radius:22px;padding:13px 16px;box-shadow:var(--shadow);line-height:1.28;max-width:650px}
 .coach b{color:var(--gold)}
-.desktopMenu{position:absolute;z-index:20;left:22px;top:105px;width:272px;display:flex;flex-direction:column;gap:12px}
-.navBtn{display:flex;align-items:center;gap:13px;background:rgba(7,17,31,.74);border:1px solid rgba(255,255,255,.12);border-radius:20px;min-height:75px;padding:14px 16px;box-shadow:0 14px 35px rgba(0,0,0,.36)}
-.navBtn .ico{font-size:30px;width:36px;text-align:center;opacity:.95}.navBtn .ttl{font-size:18px;letter-spacing:.02em}.navBtn .sub{font-size:13px;color:var(--gold);margin-top:2px}
 .plan{position:absolute;z-index:25;left:18px;right:18px;bottom:58px;background:rgba(7,17,31,.82);border:1px solid rgba(255,255,255,.16);border-radius:22px;box-shadow:var(--shadow);padding:16px 18px 12px}
 .plan h2{margin:0 0 12px;font-size:20px;color:var(--gold);letter-spacing:.03em}
 .ribbonWrap{position:relative}.ribbon{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 48px 8px;scrollbar-color:var(--gold) rgba(255,255,255,.12)}
 .stopCard{min-width:245px;max-width:245px;scroll-snap-align:start;border:1px solid rgba(255,255,255,.16);background:rgba(8,18,31,.82);border-radius:16px;overflow:hidden;box-shadow:0 12px 28px rgba(0,0,0,.35);cursor:pointer}
+.stopCard.visited{border-color:rgba(248,198,70,.75);box-shadow:0 0 0 2px rgba(248,198,70,.18),0 12px 28px rgba(0,0,0,.35)}
 .stopCard img{width:100%;height:118px;object-fit:cover;display:block;background:#0b1728}
-.stopCard .body{padding:10px 12px 12px}.stopCard h3{font-size:16px;margin:0 0 3px}.stopCard p{margin:0;color:var(--muted);font-size:12px}.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}.tag{font-size:11px;border-radius:7px;padding:4px 7px;background:#163d75}.tag.scenic{background:#586d13}.tag.history{background:#80511c}.tag.food{background:#9b2e2e}.tag.museum{background:#63419c}.tag.drive{background:#9c550c}
+.stopCard .body{padding:10px 12px 12px}.stopCard h3{font-size:16px;margin:0 0 3px}.stopCard p{margin:0;color:var(--muted);font-size:12px}
+.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}.tag{font-size:11px;border-radius:7px;padding:4px 7px;background:#18345a;color:#eaf2ff;pointer-events:none;user-select:none}.tag.scenic{background:#586d13}.tag.history{background:#80511c}.tag.food{background:#9b2e2e}.tag.museum{background:#63419c}.tag.drive{background:#9c550c}.tag.bengals{background:#234c87}.tag.relax{background:#234c87}.tag.classic{background:#234c87}.tag.city{background:#234c87}.tag.aviation{background:#234c87}
 .arrow{position:absolute;top:46px;width:38px;height:60px;border-radius:999px;background:rgba(7,17,31,.72);border:1px solid var(--line);display:grid;place-items:center;font-size:30px;z-index:2}
 .arrow.left{left:0}.arrow.right{right:0}
 .status{position:absolute;z-index:28;left:0;right:0;bottom:0;height:48px;background:rgba(5,14,25,.88);border-top:1px solid rgba(255,255,255,.12);display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-items:center;padding:0 38px;color:var(--muted)}
@@ -56,7 +52,7 @@ button.small{min-height:auto;padding:10px 12px;border-radius:999px;font-size:13p
   .top{grid-template-columns:auto 1fr auto;left:8px;right:8px;top:8px;gap:7px}
   .coach{font-size:12px;padding:8px 9px;border-radius:16px;max-width:150px}
   button.small{font-size:12px;padding:8px 10px}.top .gold{max-width:70px;line-height:1.05;padding:8px 9px}
-  .desktopMenu{display:none}.plan{left:8px;right:8px;bottom:44px;padding:12px;border-radius:18px}.plan h2{font-size:15px;margin-bottom:9px}
+  .plan{left:8px;right:8px;bottom:44px;padding:12px;border-radius:18px}.plan h2{font-size:15px;margin-bottom:9px}
   .ribbon{padding:0 30px 6px;gap:10px}.stopCard{min-width:205px;max-width:205px}.stopCard img{height:96px}.stopCard h3{font-size:14px}
   .arrow{top:38px;width:28px;height:44px;font-size:22px}.status{height:42px;padding:0 8px;grid-template-columns:1fr 1fr;gap:5px;font-size:11px}.status .hideMobile{display:none}.fuelBar{width:70px}
   .drawer{left:8px;right:8px;bottom:44px;max-height:82vh;border-radius:22px}.grid,.detail{grid-template-columns:1fr}.menuPanel{width:86vw}
@@ -65,7 +61,7 @@ button.small{min-height:auto;padding:10px 12px;border-radius:999px;font-size:13p
 </style>
 </head>
 <body>
-<div id="intro" class="intro"><div><div class="crest">🦅</div><h1>HOUGH HAWKS</h1><p class="muted">Road Trip USA · V0.14</p><button class="gold" onclick="enterGarage()">Enter the Garage</button></div></div>
+<div id="intro" class="intro"><div><div class="crest">🦅</div><h1>HOUGH HAWKS</h1><p class="muted">Road Trip USA · V0.15</p><button class="gold" onclick="enterGarage()">Enter the Garage</button></div></div>
 <div id="app">
   <div class="garage"></div>
   <div class="top">
@@ -73,15 +69,6 @@ button.small{min-height:auto;padding:10px 12px;border-radius:999px;font-size:13p
     <div class="coach"><b>Coach Ben:</b> <span id="coachLine">Morning, Ben. The garage is ready.</span></div>
     <button class="small" onclick="toggleMenu()">☰ Menu</button>
   </div>
-
-  <nav class="desktopMenu">
-    <button class="navBtn gold" onclick="startJourney()"><span class="ico">📍</span><span><span class="ttl">START JOURNEY</span><br><span class="sub">Hit the road</span></span></button>
-    <button class="navBtn" onclick="openDrawer('map')"><span class="ico">🗺️</span><span><span class="ttl">WALL MAP</span><br><span class="sub">View your travels</span></span></button>
-    <button class="navBtn" onclick="openDrawer('journal')"><span class="ico">📖</span><span><span class="ttl">JOURNAL</span><br><span class="sub">Read Coach's notes</span></span></button>
-    <button class="navBtn" onclick="openDrawer('backpack')"><span class="ico">🎒</span><span><span class="ttl">BACKPACK</span><br><span class="sub">Items & souvenirs</span></span></button>
-    <button class="navBtn" onclick="openDrawer('radio')"><span class="ico">📻</span><span><span class="ttl">RADIO</span><br><span class="sub">Garage tunes</span></span></button>
-    <button class="navBtn" onclick="openDrawer('settings')"><span class="ico">⚙️</span><span><span class="ttl">SETTINGS</span><br><span class="sub">Game options</span></span></button>
-  </nav>
 
   <section class="plan">
     <h2>TODAY'S PLAN</h2>
@@ -114,6 +101,7 @@ button.small{min-height:auto;padding:10px 12px;border-radius:999px;font-size:13p
   <div class="menuGroup">Settings</div>
   <button onclick="toggleSound()">🔊 Sound On / Off</button>
   <button onclick="toggleRain()">🌧 Rain On / Off</button>
+  <button onclick="exportSave()">📤 Export Save</button>
   <button onclick="save();toast('Saved.')">💾 Save</button>
 </aside>
 
@@ -130,7 +118,9 @@ button.small{min-height:auto;padding:10px 12px;border-radius:999px;font-size:13p
 
 <script>
 if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));}
-const KEY='houghHawksV014BigUiUpdate';
+const SAVE_KEY='houghHawksSave';
+const OLD_KEYS=['houghHawksV014BigUiUpdate','houghHawksBuild013PhotosScrollFix','houghHawksBuild012MobileClean'];
+const APP_VERSION=15;
 const stops=[
  {id:'dunes',title:'Indiana Dunes',place:'Indiana',img:'photo-indiana-dunes.jpg',coach:'The best roads make room for a view.',tags:['Scenic','Relax'],facts:['Indiana Dunes has 15 miles of Lake Michigan shoreline.','The park has dunes, wetlands, prairies, rivers and forests.'],links:[['Official Park','https://www.nps.gov/indu/'],['Plan Visit','https://www.nps.gov/indu/planyourvisit/index.htm']]},
  {id:'bridge',title:'Roseman Covered Bridge',place:'Winterset, Iowa',img:'photo-roseman-bridge.jpg',coach:'Old roads still have stories to tell.',tags:['History','Scenic'],facts:['The Roseman Covered Bridge was built in 1883.','Covered bridges protected timber structures from weather.'],links:[['Explore Bridges','https://www.google.com/maps/search/Roseman+Covered+Bridge'],['Learn More','https://en.wikipedia.org/wiki/Roseman_Covered_Bridge']]},
@@ -139,9 +129,12 @@ const stops=[
  {id:'river',title:'Ohio River View',place:'Cincinnati, Ohio',img:'photo-ohio-river.jpg',coach:'A river makes you slow down.',tags:['City','Scenic'],facts:['Cincinnati sits on the north bank of the Ohio River.','The river has long been important for transport, settlement and trade.'],links:[['Visit Cincy','https://www.visitcincy.com/'],['Freedom Center','https://freedomcenter.org/']]},
  {id:'paycor',title:'Paycor Stadium',place:'Cincinnati, Ohio',img:'photo-paycor.jpg',coach:'Bengals country. First proper stop.',tags:['Bengals','Drive'],facts:['Paycor Stadium is the home of the Cincinnati Bengals.','The stadium sits by the Ohio River in Cincinnati.'],links:[['Stadium Guide','https://www.bengals.com/stadium/'],['Stadium Tours','https://www.bengals.com/stadium/tours']]}
 ];
-let state={entered:false,sound:true,rain:false,radio:false,location:'Hough Hawks HQ',journal:['<h3>Before every great journey...</h3><p>Someone turns the key.</p><p>The next page is waiting.</p>'],souvenirs:{map:true},longRoute:false,cincinnati:false};
+let state={version:APP_VERSION,entered:false,sound:true,rain:false,radio:false,location:'Hough Hawks HQ',journal:['<h3>Before every great journey...</h3><p>Someone turns the key.</p><p>The next page is waiting.</p>'],souvenirs:{map:true},visitedStops:[],longRoute:false,cincinnati:false};
 function $(id){return document.getElementById(id)}
-function renderRibbon(){ $('ribbon').innerHTML=stops.map((s,i)=>`<article class="stopCard" onclick="openStop(${i})"><img src="${s.img}"><div class="body"><h3>${s.title}</h3><p>${s.place}</p><div class="tags">${s.tags.map(t=>`<span class="tag ${t.toLowerCase()}">${t}</span>`).join('')}</div></div></article>`).join('');}
+function migrateSave(s){s=s||{};return {...state,...s,version:APP_VERSION,souvenirs:{...state.souvenirs,...(s.souvenirs||{})},visitedStops:Array.isArray(s.visitedStops)?s.visitedStops:[]}}
+function load(){try{let s=JSON.parse(localStorage.getItem(SAVE_KEY));if(!s){for(const k of OLD_KEYS){s=JSON.parse(localStorage.getItem(k));if(s)break}}if(s)state=migrateSave(s)}catch(e){}}
+function save(){state.version=APP_VERSION;localStorage.setItem(SAVE_KEY,JSON.stringify(state))}
+function renderRibbon(){ $('ribbon').innerHTML=stops.map((s,i)=>`<article class="stopCard ${state.visitedStops.includes(s.id)?'visited':''}" onclick="openStop(${i})"><img src="${s.img}"><div class="body"><h3>${s.title}</h3><p>${s.place}</p><div class="tags">${s.tags.map(t=>`<span class="tag ${t.toLowerCase()}">${t}</span>`).join('')}</div></div></article>`).join('');}
 function scrollRibbon(dir){$('ribbon').scrollBy({left:dir*520,behavior:'smooth'});}
 function play(id,vol=.35){if(!state.sound)return;const a=$(id);if(!a)return;a.volume=vol;a.currentTime=0;a.play().catch(()=>{});}
 function loop(id,on,vol=.2){const a=$(id);if(!a)return;a.volume=vol;if(on&&state.sound){a.play().catch(()=>{})}else{a.pause();}}
@@ -149,28 +142,28 @@ function enterGarage(){state.entered=true;save();$('intro').classList.add('hide'
 function toggleMenu(){$('menuPanel').classList.toggle('show')}
 function closeDrawer(){$('drawer').classList.remove('show')}
 function openDrawer(type){const d=$('drawer');d.innerHTML=content(type);d.classList.add('show')}
-function openStop(i){const s=stops[i];openDrawer('stop'+i);$('coachLine').textContent=s.coach;}
+function visitStop(id){if(!state.visitedStops.includes(id))state.visitedStops.push(id);state.souvenirs['photo_'+id]=true;save();renderRibbon();}
+function openStop(i){const s=stops[i];visitStop(s.id);openDrawer('stop'+i);$('coachLine').textContent=s.coach;}
 function content(type){
- if(type.startsWith('stop')){const s=stops[Number(type.replace('stop',''))];return `<button class="small" onclick="closeDrawer()">Close</button><div class="detail"><img src="${s.img}"><div><h1>${s.title}</h1><p class="muted">${s.place}</p><p><b>Coach Ben:</b> "${s.coach}"</p><ul>${s.facts.map(f=>`<li>${f}</li>`).join('')}</ul><div class="links">${s.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]}</a>`).join('')}</div></div></div>`}
+ if(type.startsWith('stop')){const s=stops[Number(type.replace('stop',''))];return `<button class="small" onclick="closeDrawer()">Close</button><div class="detail"><img src="${s.img}"><div><h1>${s.title}</h1><p class="muted">${s.place}</p><div class="tags">${s.tags.map(t=>`<span class="tag ${t.toLowerCase()}">${t}</span>`).join('')}</div><p><b>Coach Ben:</b> "${s.coach}"</p><ul>${s.facts.map(f=>`<li>${f}</li>`).join('')}</ul><div class="links">${s.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]}</a>`).join('')}</div></div></div>`}
  if(type==='journal')return `<button class="small" onclick="closeDrawer()">Close</button><h1>Coach's Journal</h1><div class="journal">${state.journal.join('<hr>')}</div>`;
  if(type==='map')return `<button class="small" onclick="closeDrawer()">Close</button><h1>Wall Map</h1><div class="mapBox"><div class="route"></div><div class="pin" style="left:20%;top:55%">HQ</div><div class="pin" style="left:68%;top:48%">Cincinnati</div><div class="pin lock" style="left:62%;top:59%">Gettysburg</div><div class="pin lock" style="left:42%;top:43%">Rockies</div><div class="pin lock" style="left:22%;top:67%">California</div></div>`;
  if(type==='backpack')return `<button class="small" onclick="closeDrawer()">Close</button><h1>Backpack</h1><p class="muted">Memories, not points.</p><div class="grid">${items()}</div>`;
  if(type==='photos')return `<button class="small" onclick="closeDrawer()">Close</button><h1>Photo Album</h1><div class="grid">${stops.map((s,i)=>`<article class="item" onclick="openStop(${i})"><img src="${s.img}" style="width:100%;height:145px;object-fit:cover;border-radius:12px;margin-bottom:8px"><b>${s.title}</b><br><span class="muted">${s.place}</span></article>`).join('')}</div>`;
  if(type==='radio')return `<button class="small" onclick="closeDrawer()">Close</button><h1>📻 Garage Radio</h1><p class="muted">Music makes the miles shorter.</p><div class="grid"><button class="gold" onclick="toggleRadio()">📻 Radio On / Off<br><span class="muted">${state.radio?'Currently playing':'Currently off'}</span></button><button onclick="play('train',.25)">🚂 Railroad Hour</button><button onclick="toggleRain()">🌧 Rain on the Roof</button><button onclick="play('kettle',.22)">☕ Kettle</button></div>`;
- if(type==='settings')return `<button class="small" onclick="closeDrawer()">Close</button><h1>Settings</h1><div class="grid"><button onclick="toggleSound()">🔊 Sound On / Off</button><button onclick="toggleRain()">🌧 Rain On / Off</button><button onclick="save();toast('Saved.')">💾 Save</button></div>`;
+ if(type==='settings')return `<button class="small" onclick="closeDrawer()">Close</button><h1>Settings</h1><div class="grid"><button onclick="toggleSound()">🔊 Sound On / Off</button><button onclick="toggleRain()">🌧 Rain On / Off</button><button onclick="exportSave()">📤 Export Save</button><button onclick="save();toast('Saved.')">💾 Save</button></div>`;
  if(type==='truck')return `<button class="small" onclick="closeDrawer()">Close</button><h1>The Ranger</h1><p class="muted">She's not just transport. She's part of the journey.</p><div class="grid"><img src="truck-front.png" style="width:100%;border-radius:18px"><img src="truck-interior.png" style="width:100%;border-radius:18px"><img src="truck-rear.png" style="width:100%;border-radius:18px"></div>`;
  if(type==='journey')return `<button class="small" onclick="closeDrawer()">Close</button><h1>The First Mile</h1><p class="muted">The long way has started. Cincinnati can wait a little longer.</p><div class="mapBox"><div class="route"></div><div class="truckDot">🚚</div><div class="pin" style="left:20%;top:55%">HQ</div><div class="pin" style="left:68%;top:48%">Cincinnati</div><div class="pin lock" style="left:62%;top:59%">Gettysburg</div><div class="pin lock" style="left:42%;top:43%">Rockies</div></div><h2>Roadside Memories</h2><div class="grid">${stops.map((s,i)=>`<article class="item" onclick="openStop(${i})"><img src="${s.img}" style="width:100%;height:145px;object-fit:cover;border-radius:12px;margin-bottom:8px"><b>${s.title}</b><br><span class="muted">${s.place}</span></article>`).join('')}</div><button class="gold wide" onclick="arriveCincinnati()">🏈 Finish the day in Cincinnati</button>`;
  return '';
 }
 function items(){const arr=[['map','🗺️','Folded USA Map','Already waiting.'],['photo_dunes','🏞️','Indiana Dunes Photo','A real stop to explore.'],['photo_bridge','🌉','Roseman Bridge Photo','Roadside detour.'],['photo_diner','☕','Route 66 Diner Note','Small-town stop.'],['photo_usaf','✈️','Air Force Museum Note','Machines with stories.'],['photo_river','🌊','Ohio River View','Near Cincinnati.'],['photo_paycor','🏈','Paycor Stadium Photo','Bengals country.'],['cincinnati','🎟️','Bengals Heritage Ticket','Collected in Cincinnati.']];return arr.map(i=>`<div class="item ${state.souvenirs[i[0]]?'':'lock'}">${i[1]} <b>${i[2]}</b><br><span class="muted">${i[3]}</span></div>`).join('')}
-function startJourney(){state.longRoute=true;stops.forEach(s=>state.souvenirs['photo_'+s.id]=true);addJournalOnce('journey','<h3>Journey 001 · The Long Way</h3><p>The kettle had barely finished before the truck was ready.</p><p>We took the long way because the long way remembers more.</p>');play('engine',.32);setTimeout(()=>play('wind',.2),650);$('coachLine').textContent=state.radio?'Good soundtrack for the first mile.':'No rush. Let’s just take the first mile.';save();openDrawer('journey');toast('The long way begins.')}
+function startJourney(){state.longRoute=true;addJournalOnce('journey','<h3>Journey 001 · The Long Way</h3><p>The kettle had barely finished before the truck was ready.</p><p>We took the long way because the long way remembers more.</p>');play('engine',.32);setTimeout(()=>play('wind',.2),650);$('coachLine').textContent=state.radio?'Good soundtrack for the first mile.':'No rush. Let’s just take the first mile.';save();openDrawer('journey');toast('The long way begins.')}
 function arriveCincinnati(){state.location='Cincinnati';state.cincinnati=true;state.souvenirs.cincinnati=true;addJournalOnce('cincinnati','<h3>Cincinnati</h3><p>First proper stop: Bengals country.</p><p>Souvenir collected: Bengals Heritage Ticket.</p>');$('coachLine').textContent='First stop complete. The ticket goes on the shelf.';save();openDrawer('backpack');toast('Cincinnati pinned. Souvenir added.')}
 function addJournalOnce(k,e){if(!state['j_'+k]){state.journal.push(e);state['j_'+k]=true}}
 function toggleRadio(){state.radio=!state.radio;loop('radio',state.radio,.18);$('coachLine').textContent=state.radio?'Music makes the miles shorter.':'Sometimes quiet is good too.';$('radioStatus').textContent=state.radio?'ABBA Medley':'Off';toast(state.radio?'The garage radio clicks on.':'The garage radio is off.');save();if($('drawer').classList.contains('show'))openDrawer('radio')}
 function toggleRain(){state.rain=!state.rain;document.body.classList.toggle('rain',state.rain);loop('rain',state.rain,.18);toast(state.rain?'Rain on the garage roof.':'Rain stopped.');save()}
 function toggleSound(){state.sound=!state.sound;if(!state.sound){['birds','rain','kettle','engine','train','wind','radio'].forEach(id=>$(id)?.pause())}else{loop('birds',true,.12);if(state.rain)loop('rain',true,.18);if(state.radio)loop('radio',true,.18)}save();toast(state.sound?'Sound on.':'Sound off.')}
-function save(){localStorage.setItem(KEY,JSON.stringify(state))}
-function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s)state={...state,...s,souvenirs:{...state.souvenirs,...(s.souvenirs||{})}}}catch(e){}}
+function exportSave(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Ben_Hough_Hawks_Save.json';a.click();URL.revokeObjectURL(a.href);}
 function toast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',3000)}
 load();renderRibbon();$('radioStatus').textContent=state.radio?'ABBA Medley':'Off';save();
 </script>
