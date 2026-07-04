@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Hough Hawks – Road Trip USA V0.17</title>
+<title>Hough Hawks – Road Trip USA V0.18.2</title>
 <style>
 :root{--gold:#f8c646;--text:#f7fafc;--muted:#b9c6d7;--line:rgba(255,255,255,.16);--panel:rgba(7,17,31,.82);--shadow:0 22px 65px rgba(0,0,0,.52)}
 *{box-sizing:border-box}
@@ -64,7 +64,7 @@ button.small{min-height:auto;padding:10px 12px;border-radius:999px;font-size:13p
 </style>
 </head>
 <body>
-<div id="intro" class="intro"><div><div class="crest">🦅</div><h1>HOUGH HAWKS</h1><p class="muted">Road Trip USA · V0.17</p><button class="gold" onclick="enterGarage()">Enter the Garage</button></div></div>
+<div id="intro" class="intro"><div><div class="crest">🦅</div><h1>HOUGH HAWKS</h1><p class="muted">Road Trip USA · V0.18.2</p><button class="gold" onclick="enterGarage()">Enter the Garage</button></div></div>
 <div id="app">
   <div class="garage"></div>
   <div class="top">
@@ -82,7 +82,6 @@ button.small{min-height:auto;padding:10px 12px;border-radius:999px;font-size:13p
     </div>
   </section>
 
-  <div id="versionBadge" style="position:absolute;right:10px;top:64px;z-index:40;background:rgba(248,198,70,.92);color:#07111f;border-radius:999px;padding:6px 10px;font-weight:950;font-size:12px;box-shadow:0 8px 20px rgba(0,0,0,.35)">V0.18.1</div>
   <footer class="status">
     <div>🎵 <b>Garage Radio</b> &nbsp; <span id="radioStatus">Off</span></div>
     <div>🌧️ <b>18°C</b> &nbsp; Light Rain</div>
@@ -119,25 +118,19 @@ button.small{min-height:auto;padding:10px 12px;border-radius:999px;font-size:13p
 <audio id="train" src="audio-train.wav" preload="auto"></audio>
 <audio id="wind" src="audio-wind.wav" preload="auto"></audio>
 <audio id="radio" src="radio-abba.mp3" loop preload="auto"></audio>
-<audio id="bengalsRadio" src="radio-bengals.wav" loop preload="auto"></audio>
+<audio id="bengalsWhoDey" src="bengals-who-dey.mp3" preload="auto"></audio>
+<audio id="bengalsBigHit" src="bengals-big-hit.mp3" preload="auto"></audio>
 <audio id="roadRadio" src="radio-road.wav" loop preload="auto"></audio>
 <audio id="staticRadio" src="radio-static.wav" loop preload="auto"></audio>
 
 <script>
-if('serviceWorker'in navigator){
-window.addEventListener('load',()=>{
-  navigator.serviceWorker.register('./service-worker.js?v=0181').then(reg=>{
-    reg.update();
-    if(reg.waiting){reg.waiting.postMessage({type:'SKIP_WAITING'});}
-  }).catch(()=>{});
-});
-}
+if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js?v=0182').catch(()=>{}));}
 const SAVE_KEY='houghHawksSave';
 const OLD_KEYS=['houghHawksV014BigUiUpdate','houghHawksBuild013PhotosScrollFix','houghHawksBuild012MobileClean'];
-const APP_VERSION=17;
+const APP_VERSION=182;
 const radioStations={
   abba:{name:'ABBA Garage Radio',freq:'89.7 HH FM',audio:'radio',line:'Music makes the miles shorter.'},
-  bengals:{name:'Bengals Game Day',freq:'97.1 JUNGLE',audio:'bengalsRadio',line:'Bengals Game Day: Who Dey chant and game-impact loop.'},
+  bengals:{name:'Bengals Game Day',freq:'97.1 JUNGLE',audio:'bengalsSequence',line:'Bengals Game Day: Who Dey chant and big-hit loop.'},
   road:{name:'Road Rumble',freq:'66.0 ROUTE',audio:'roadRadio',line:'Tyres on tarmac. That is a proper soundtrack.'},
   rain:{name:'Rain on the Roof',freq:'18.0 GARAGE',audio:'rain',line:'Rain on the garage roof. No rush today.'},
   railroad:{name:'Railroad Hour',freq:'45.5 TRACK',audio:'train',line:'A train passes somewhere beyond the road.'},
@@ -160,11 +153,47 @@ function renderRibbon(){ $('ribbon').innerHTML=stops.map((s,i)=>`<article class=
 function scrollRibbon(dir){$('ribbon').scrollBy({left:dir*520,behavior:'smooth'});}
 function play(id,vol=.35, reset=true){if(!state.sound)return;const a=$(id);if(!a)return;a.volume=vol;if(reset)a.currentTime=0;a.play().catch(()=>{});}
 function loop(id,on,vol=.2){const a=$(id);if(!a)return;a.volume=vol;if(on&&state.sound){a.play().catch(()=>{})}else{a.pause();}}
-function stopAllRadio(){['radio','bengalsRadio','roadRadio','rain','train','staticRadio'].forEach(id=>$(id)?.pause())}
+let bengalsSequenceTimer=null;
+let bengalsSequenceActive=false;
+function stopBengalsSequence(){
+  bengalsSequenceActive=false;
+  if(bengalsSequenceTimer){clearTimeout(bengalsSequenceTimer);bengalsSequenceTimer=null;}
+  ['bengalsWhoDey','bengalsBigHit'].forEach(id=>{const a=$(id); if(a){a.pause(); a.currentTime=0;}});
+}
+function stopAllRadio(){
+  stopBengalsSequence();
+  ['radio','roadRadio','rain','train','staticRadio'].forEach(id=>$(id)?.pause());
+}
 function activeStation(){return radioStations[state.radioStation]||radioStations.abba}
+function playBengalsSequence(){
+  stopAllRadio();
+  if(!state.sound) return;
+  bengalsSequenceActive=true;
+  const who=$('bengalsWhoDey');
+  const hit=$('bengalsBigHit');
+  if(!who || !hit){ play('staticRadio',.12,false); return; }
+  who.volume=.42;
+  hit.volume=.34;
+  const playWho=()=>{ if(!bengalsSequenceActive || !state.sound) return; who.currentTime=0; who.play().catch(()=>{}); };
+  const playHit=()=>{ if(!bengalsSequenceActive || !state.sound) return; hit.currentTime=0; hit.play().catch(()=>{}); };
+  who.onended=()=>{ if(!bengalsSequenceActive) return; bengalsSequenceTimer=setTimeout(playHit,700); };
+  hit.onended=()=>{ if(!bengalsSequenceActive) return; bengalsSequenceTimer=setTimeout(playWho,1300); };
+  playWho();
+}
 function updateRadioStatus(){const st=activeStation();$('radioStatus').textContent=state.radio?st.name:'Off'}
-function startStation(key){state.radioStation=key;state.radio=true;stopAllRadio();const st=activeStation();play(st.audio, key==='bengals'?0.22:0.18, false);$('coachLine').textContent=st.line;updateRadioStatus();save();if($('drawer').classList.contains('show'))openDrawer('radio')}
-function enterGarage(){state.entered=true;save();$('intro').classList.add('hide');setTimeout(()=>{$('intro').style.display='none'},800);loop('birds',true,.12);setTimeout(()=>play('kettle',.18),650);if(state.radio){const st=activeStation();setTimeout(()=>play(st.audio, st.audio==='bengalsRadio'?0.22:0.18, false),900)}updateRadioStatus();toast('Morning, Ben.');}
+function startStation(key){
+  state.radioStation=key;
+  state.radio=true;
+  stopAllRadio();
+  const st=activeStation();
+  if(key==='bengals') playBengalsSequence();
+  else play(st.audio,.18,false);
+  $('coachLine').textContent=st.line;
+  updateRadioStatus();
+  save();
+  if($('drawer').classList.contains('show'))openDrawer('radio');
+}
+function enterGarage(){state.entered=true;save();$('intro').classList.add('hide');setTimeout(()=>{$('intro').style.display='none'},800);loop('birds',true,.12);setTimeout(()=>play('kettle',.18),650);if(state.radio){const st=activeStation();setTimeout(()=>{ if(state.radioStation==='bengals') playBengalsSequence(); else play(st.audio,.18,false); },900)}updateRadioStatus();toast('Morning, Ben.');}
 function toggleMenu(){$('menuPanel').classList.toggle('show')}
 function closeDrawer(){$('drawer').classList.remove('show')}
 function openDrawer(type){const d=$('drawer');d.innerHTML=content(type);d.classList.add('show')}
@@ -187,9 +216,24 @@ function items(){const arr=[['map','🗺️','Folded USA Map','Already waiting.'
 function startJourney(){state.longRoute=true;addJournalOnce('journey','<h3>Journey 001 · The Long Way</h3><p>The kettle had barely finished before the truck was ready.</p><p>We took the long way because the long way remembers more.</p>');play('engine',.32);setTimeout(()=>play('wind',.2),650);$('coachLine').textContent=state.radio?'Good soundtrack for the first mile.':'No rush. Let’s just take the first mile.';save();openDrawer('journey');toast('The long way begins.')}
 function arriveCincinnati(){state.location='Cincinnati';state.cincinnati=true;state.souvenirs.cincinnati=true;addJournalOnce('cincinnati','<h3>Cincinnati</h3><p>First proper stop: Bengals country.</p><p>Souvenir collected: Bengals Heritage Ticket.</p>');$('coachLine').textContent='First stop complete. The ticket goes on the shelf.';startStation('bengals');save();openDrawer('backpack');toast('Cincinnati pinned. Bengals Game Day is on the radio.')}
 function addJournalOnce(k,e){if(!state['j_'+k]){state.journal.push(e);state['j_'+k]=true}}
-function toggleRadio(){state.radio=!state.radio;if(state.radio){const st=activeStation();play(st.audio, st.audio==='bengalsRadio'?0.22:0.18, false);$('coachLine').textContent=st.line;}else{stopAllRadio();$('coachLine').textContent='Sometimes quiet is good too.';}updateRadioStatus();toast(state.radio?'The garage radio clicks on.':'The garage radio is off.');save();if($('drawer').classList.contains('show'))openDrawer('radio')}
+function toggleRadio(){
+  state.radio=!state.radio;
+  if(state.radio){
+    const st=activeStation();
+    if(state.radioStation==='bengals') playBengalsSequence();
+    else play(st.audio,.18,false);
+    $('coachLine').textContent=st.line;
+  }else{
+    stopAllRadio();
+    $('coachLine').textContent='Sometimes quiet is good too.';
+  }
+  updateRadioStatus();
+  toast(state.radio?'The garage radio clicks on.':'The garage radio is off.');
+  save();
+  if($('drawer').classList.contains('show'))openDrawer('radio');
+}
 function toggleRain(){state.rain=!state.rain;document.body.classList.toggle('rain',state.rain);if(state.radioStation!=='rain')loop('rain',state.rain,.18);toast(state.rain?'Rain on the garage roof.':'Rain stopped.');save()}
-function toggleSound(){state.sound=!state.sound;if(!state.sound){['birds','rain','kettle','engine','train','wind','radio','bengalsRadio','roadRadio','staticRadio'].forEach(id=>$(id)?.pause())}else{loop('birds',true,.12);if(state.rain&&state.radioStation!=='rain')loop('rain',true,.18);if(state.radio){const st=activeStation();play(st.audio, st.audio==='bengalsRadio'?0.22:0.18, false)}}save();toast(state.sound?'Sound on.':'Sound off.')}
+function toggleSound(){state.sound=!state.sound;if(!state.sound){['birds','rain','kettle','engine','train','wind','radio','bengalsWhoDey','bengalsBigHit','roadRadio','staticRadio'].forEach(id=>$(id)?.pause())}else{loop('birds',true,.12);if(state.rain&&state.radioStation!=='rain')loop('rain',true,.18);if(state.radio){const st=activeStation(); if(state.radioStation==='bengals') playBengalsSequence(); else play(st.audio,.18,false)}}save();toast(state.sound?'Sound on.':'Sound off.')}
 function exportSave(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Ben_Hough_Hawks_Save.json';a.click();URL.revokeObjectURL(a.href);}
 function toast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',3000)}
 load();renderRibbon();updateRadioStatus();if(state.rain)document.body.classList.add('rain');save();
