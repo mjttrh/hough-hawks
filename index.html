@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Hough Hawks – Road Trip USA V0.18.3</title>
+<title>Hough Hawks – Road Trip USA V0.18.4</title>
 <style>
 :root{--gold:#f8c646;--text:#f7fafc;--muted:#b9c6d7;--line:rgba(255,255,255,.16);--panel:rgba(7,17,31,.82);--shadow:0 22px 65px rgba(0,0,0,.52)}
 *{box-sizing:border-box}
@@ -64,7 +64,7 @@ button.small{min-height:auto;padding:10px 12px;border-radius:999px;font-size:13p
 </style>
 </head>
 <body>
-<div id="intro" class="intro"><div><div class="crest">🦅</div><h1>HOUGH HAWKS</h1><p class="muted">Road Trip USA · V0.18.3</p><button class="gold" onclick="enterGarage()">Enter the Garage</button></div></div>
+<div id="intro" class="intro"><div><div class="crest">🦅</div><h1>HOUGH HAWKS</h1><p class="muted">Road Trip USA · V0.18.4</p><button class="gold" onclick="enterGarage()">Enter the Garage</button></div></div>
 <div id="app">
   <div class="garage"></div>
   <div class="top">
@@ -124,10 +124,10 @@ button.small{min-height:auto;padding:10px 12px;border-radius:999px;font-size:13p
 <audio id="staticRadio" src="radio-static.wav" loop preload="auto"></audio>
 
 <script>
-if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js?v=0183').catch(()=>{}));}
+if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js?v=0184').catch(()=>{}));}
 const SAVE_KEY='houghHawksSave';
 const OLD_KEYS=['houghHawksV014BigUiUpdate','houghHawksBuild013PhotosScrollFix','houghHawksBuild012MobileClean'];
-const APP_VERSION=183;
+const APP_VERSION=184;
 const radioStations={
   abba:{name:'ABBA Garage Radio',freq:'89.7 HH FM',audio:'radio',line:'Music makes the miles shorter.'},
   bengals:{name:'Bengals Game Day',freq:'97.1 JUNGLE',audio:'bengalsSequence',line:'Bengals Game Day: Who Dey chant and big-hit loop.'},
