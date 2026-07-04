@@ -1,63 +1,151 @@
-<!doctype html><html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#07111f"><meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon-192.png">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07111f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>Hough Hawks – Road Trip USA</title>
 <style>
 :root{--gold:#f8c646;--text:#f7fafc;--muted:#b9c6d7;--line:rgba(255,255,255,.16);--shadow:0 22px 65px rgba(0,0,0,.5)}
-*{box-sizing:border-box}body{margin:0;background:#07111f;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;overflow-x:hidden}
-.scene{position:relative;min-height:100vh;background:linear-gradient(180deg,rgba(7,17,31,.04),rgba(7,17,31,.5)),url("garage-real.png") center/cover no-repeat}
-.scene:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 48%,transparent 0 44%,rgba(7,17,31,.22) 76%,rgba(7,17,31,.78) 100%);pointer-events:none}
-body.rain .scene:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(110deg,rgba(255,255,255,.10) 0 1px,transparent 1px 15px);opacity:.13;animation:rain .9s linear infinite;pointer-events:none}@keyframes rain{from{transform:translateY(-12px)}to{transform:translateY(12px)}}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:#07111f;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;overflow:hidden}
+.scene{
+  position:fixed;inset:0;
+  background:linear-gradient(180deg,rgba(7,17,31,.08),rgba(7,17,31,.50)),url("garage-real.png") center/cover no-repeat;
+}
+.scene::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 48%,transparent 0 42%,rgba(7,17,31,.25) 76%,rgba(7,17,31,.80) 100%);pointer-events:none}
+body.rain .scene::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(110deg,rgba(255,255,255,.10) 0 1px,transparent 1px 15px);opacity:.13;animation:rain .9s linear infinite;pointer-events:none}@keyframes rain{from{transform:translateY(-12px)}to{transform:translateY(12px)}}
 .intro{position:fixed;inset:0;background:#07111f;z-index:100;display:flex;align-items:center;justify-content:center;text-align:center;transition:.7s}.intro.hide{opacity:0;pointer-events:none}
 .crest{width:145px;height:145px;border:4px solid var(--gold);border-radius:34px;margin:0 auto 20px;display:grid;place-items:center;font-size:70px;background:#0d1f36;box-shadow:var(--shadow)}
-.coachLine{position:absolute;top:22px;left:50%;transform:translateX(-50%);z-index:7;background:rgba(7,17,31,.72);border:1px solid var(--line);border-radius:22px;padding:13px 16px;box-shadow:var(--shadow);max-width:600px;width:calc(100% - 40px)}.coachLine b{color:var(--gold)}
-.objectChip{position:absolute;z-index:8;border:1px solid rgba(248,198,70,.32);background:rgba(7,17,31,.66);backdrop-filter:blur(7px);border-radius:999px;color:white;padding:10px 13px;font-weight:950;box-shadow:0 10px 24px rgba(0,0,0,.32);cursor:pointer;transition:.18s;min-height:auto}
-.objectChip:hover{background:rgba(248,198,70,.18);border-color:rgba(248,198,70,.75);transform:translateY(-2px)}.objectChip.primary{background:linear-gradient(160deg,rgba(128,93,8,.86),rgba(43,33,9,.86));border-color:rgba(248,198,70,.60)}
-.hint{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:7;background:rgba(7,17,31,.62);border:1px solid var(--line);border-radius:999px;padding:9px 14px;color:var(--muted);font-weight:850}
-.drawer{position:fixed;inset:auto 18px 18px 18px;max-height:84vh;overflow:auto;z-index:60;background:linear-gradient(160deg,rgba(18,34,59,.985),rgba(10,19,34,.975));border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:18px;display:none}.drawer.show{display:block;animation:rise .2s ease}@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.menuPanel{position:fixed;top:0;left:0;bottom:0;width:310px;z-index:80;background:rgba(7,17,31,.96);border-right:1px solid var(--line);box-shadow:var(--shadow);padding:18px;transform:translateX(-105%);transition:.25s}.menuPanel.show{transform:translateX(0)}.menuPanel button{width:100%;margin:6px 0}
-button{appearance:none;border:0;border-radius:18px;color:white;background:linear-gradient(160deg,#152a49,#101d31);border:1px solid var(--line);padding:13px 14px;min-height:58px;font-weight:900;font-size:15px;text-align:left;box-shadow:0 8px 20px rgba(0,0,0,.24)}button.gold{background:linear-gradient(160deg,#805d08,#2b2109)}button.small{min-height:auto;padding:10px 12px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.wide{grid-column:1/-1}.muted{color:var(--muted)}h1{font-size:38px;margin:0 0 8px}h2{margin:0 0 10px;font-size:28px}
-.journal{background:#f4ead5;color:#2b241a;border-radius:20px;padding:20px;font-family:Georgia,serif;line-height:1.55}.journal hr{border:0;border-top:1px solid rgba(0,0,0,.14);margin:18px 0}
+.topBar{
+  position:fixed;left:14px;right:14px;top:14px;z-index:50;
+  display:flex;gap:10px;align-items:center;justify-content:space-between;
+}
+.topLeft,.topRight{display:flex;gap:8px;align-items:center}
+button{appearance:none;border:0;border-radius:18px;color:white;background:linear-gradient(160deg,#152a49,#101d31);border:1px solid var(--line);padding:13px 14px;min-height:52px;font-weight:900;font-size:15px;text-align:left;box-shadow:0 8px 20px rgba(0,0,0,.24);cursor:pointer}
+button.gold{background:linear-gradient(160deg,#805d08,#2b2109)}
+button.small{min-height:auto;padding:9px 12px;border-radius:999px;font-size:13px}
+.coachLine{background:rgba(7,17,31,.74);border:1px solid var(--line);border-radius:20px;padding:11px 14px;box-shadow:var(--shadow);max-width:min(650px,calc(100vw - 210px));line-height:1.25}
+.coachLine b{color:var(--gold)}
+.bottomHint{
+  position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:40;
+  background:rgba(7,17,31,.66);border:1px solid var(--line);border-radius:999px;padding:9px 14px;color:var(--muted);font-weight:850;text-align:center
+}
+.menuPanel{position:fixed;top:0;left:0;bottom:0;width:320px;z-index:80;background:rgba(7,17,31,.97);border-right:1px solid var(--line);box-shadow:var(--shadow);padding:18px;transform:translateX(-105%);transition:.25s;overflow:auto}
+.menuPanel.show{transform:translateX(0)}
+.menuPanel button{width:100%;margin:6px 0}
+.drawer{position:fixed;left:18px;right:18px;bottom:18px;max-height:78vh;overflow:auto;z-index:60;background:linear-gradient(160deg,rgba(18,34,59,.985),rgba(10,19,34,.975));border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:18px;display:none}
+.drawer.show{display:block;animation:rise .2s ease}@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.wide{grid-column:1/-1}.muted{color:var(--muted)}
+h1{font-size:38px;margin:0 0 8px}h2{margin:0 0 10px;font-size:28px}
+.journal{background:#f4ead5;color:#2b241a;border-radius:20px;padding:20px;font-family:Georgia,serif;line-height:1.55}
+.journal hr{border:0;border-top:1px solid rgba(0,0,0,.14);margin:18px 0}
 .mapBox{height:430px;border-radius:24px;position:relative;overflow:hidden;border:1px solid var(--line);background:linear-gradient(180deg,rgba(7,17,31,.05),rgba(7,17,31,.25)),url("map-clean.png") center/cover no-repeat,#173b5d}
-.pin{position:absolute;z-index:2;transform:translate(-50%,-50%);padding:8px 10px;border-radius:999px;background:var(--gold);color:#0b1628;font-weight:950;font-size:12px}.pin.lock{background:#aebbd0}.route{position:absolute;z-index:1;left:20%;top:55%;width:48%;height:5px;background:rgba(248,198,70,.9);transform:rotate(-8deg);border-radius:99px}.truckDot{position:absolute;z-index:3;left:20%;top:55%;font-size:30px;filter:drop-shadow(0 7px 10px rgba(0,0,0,.5));animation:drive 5s ease-in-out forwards}@keyframes drive{0%{left:20%;top:55%}35%{left:38%;top:46%}65%{left:54%;top:50%}100%{left:68%;top:48%}}
-.scroll{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 2px 16px}.stop{min-width:460px;max-width:460px;scroll-snap-align:start;border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.07);padding:14px}.stop img{width:100%;height:250px;object-fit:cover;border-radius:17px;border:1px solid var(--line);margin:8px 0;background:#0b1728}.stop ul{padding-left:20px;line-height:1.45}.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.links a{color:#07111f;background:var(--gold);padding:8px 10px;border-radius:999px;text-decoration:none;font-weight:950;font-size:13px}.item{padding:14px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.08);min-height:82px}.item.lock{opacity:.45;filter:grayscale(1)}
-.controls{position:fixed;right:12px;bottom:12px;display:flex;gap:8px;z-index:70}.controls button{min-height:auto;border-radius:999px;padding:9px 11px;font-size:13px;background:rgba(7,17,31,.78)}.toast{position:fixed;left:14px;right:14px;bottom:18px;margin:auto;max-width:780px;padding:14px 16px;border-radius:18px;background:rgba(8,16,29,.96);border:1px solid var(--line);display:none;z-index:90;font-weight:850;box-shadow:var(--shadow)}.secret{position:absolute;right:8%;bottom:18%;width:40px;height:40px;z-index:8;border-radius:50%;opacity:.01;cursor:pointer}.secret:hover{opacity:.12;background:var(--gold)}
-@media(max-width:800px){.grid{grid-template-columns:1fr}.stop{min-width:310px;max-width:310px}.mapBox{height:350px}.drawer{inset:auto 10px 10px 10px}.hint{font-size:12px}.menuPanel{width:84vw}.objectChip{font-size:12px;padding:8px 10px}.coachLine{font-size:14px}}
-</style></head><body>
-<div id="intro" class="intro"><div><div class="crest">🦅</div><h1>HOUGH HAWKS</h1><p class="muted">Road Trip USA · Build 010</p><button class="gold" onclick="enterGarage()">Enter the Garage</button></div></div>
-<aside id="menuPanel" class="menuPanel"><button class="small" onclick="toggleMenu()">Close</button><h2>Garage Menu</h2><button onclick="startJourney();toggleMenu()">🚚 Start Today's Journey</button><button onclick="openDrawer('journal');toggleMenu()">📖 Journal</button><button onclick="openDrawer('map');toggleMenu()">🗺 Wall Map</button><button onclick="openDrawer('backpack');toggleMenu()">🎒 Backpack</button><button onclick="openDrawer('photos');toggleMenu()">📷 Photo Album</button><button onclick="openDrawer('radio');toggleMenu()">📻 Garage Radio</button><button onclick="openDrawer('truck');toggleMenu()">🚚 The Ranger</button></aside>
-<main class="scene">
-<div class="coachLine"><b>Coach Ben:</b> <span id="coachLine">Morning, Ben. Have a look around while I put the kettle on.</span></div>
-<button class="objectChip primary" style="left:42%;top:58%" onclick="startJourney()">🚚 Start Journey</button>
-<button class="objectChip" style="left:44%;top:24%" onclick="openDrawer('map')">🗺 Wall Map</button>
-<button class="objectChip" style="right:15%;bottom:22%" onclick="openDrawer('journal')">📖 Journal</button>
-<button class="objectChip" style="right:8%;top:45%" onclick="openDrawer('backpack')">🎒 Shelf</button>
-<button class="objectChip" style="left:8%;bottom:15%" onclick="openDrawer('radio')" id="radioLabel">📻 Garage Radio</button>
-<button class="objectChip" style="right:10%;bottom:9%" onclick="steamKettle()">☕ Kettle</button>
-<div class="hint">Tap the object labels. Use Menu if you want direct navigation.</div><button class="secret" onclick="showSecretPlaque()"></button>
-</main><section id="drawer" class="drawer"></section>
-<div class="controls"><button onclick="toggleMenu()">Menu</button><button onclick="toggleSound()" id="soundBtn">Sound On</button><button onclick="save()">Save</button></div><div class="toast" id="toast"></div>
-<audio id="birds" src="audio-birds.mp3" loop preload="auto"></audio><audio id="kettle" src="audio-kettle.wav" preload="auto"></audio><audio id="engine" src="audio-engine.mp3" preload="auto"></audio><audio id="rain" src="audio-rain.wav" loop preload="auto"></audio><audio id="train" src="audio-train.wav" preload="auto"></audio><audio id="wind" src="audio-wind.wav" preload="auto"></audio><audio id="radio" src="radio-abba.mp3" loop preload="auto"></audio>
+.pin{position:absolute;z-index:2;transform:translate(-50%,-50%);padding:8px 10px;border-radius:999px;background:var(--gold);color:#0b1628;font-weight:950;font-size:12px}.pin.lock{background:#aebbd0}
+.route{position:absolute;z-index:1;left:20%;top:55%;width:48%;height:5px;background:rgba(248,198,70,.9);transform:rotate(-8deg);border-radius:99px}
+.truckDot{position:absolute;z-index:3;left:20%;top:55%;font-size:30px;filter:drop-shadow(0 7px 10px rgba(0,0,0,.5));animation:drive 5s ease-in-out forwards}@keyframes drive{0%{left:20%;top:55%}35%{left:38%;top:46%}65%{left:54%;top:50%}100%{left:68%;top:48%}}
+.scroll{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 2px 16px}
+.stop{min-width:460px;max-width:460px;scroll-snap-align:start;border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.07);padding:14px}
+.stop img{width:100%;height:250px;object-fit:cover;border-radius:17px;border:1px solid var(--line);margin:8px 0;background:#0b1728}
+.stop ul{padding-left:20px;line-height:1.45}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.links a{color:#07111f;background:var(--gold);padding:8px 10px;border-radius:999px;text-decoration:none;font-weight:950;font-size:13px}
+.item{padding:14px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.08);min-height:82px}.item.lock{opacity:.45;filter:grayscale(1)}
+.toast{position:fixed;left:14px;right:14px;bottom:18px;margin:auto;max-width:780px;padding:14px 16px;border-radius:18px;background:rgba(8,16,29,.96);border:1px solid var(--line);display:none;z-index:90;font-weight:850;box-shadow:var(--shadow)}
+@media(max-width:800px){
+  .coachLine{max-width:calc(100vw - 150px);font-size:13px;padding:9px 11px}
+  .topBar{top:8px;left:8px;right:8px}.topRight{gap:5px}.small{font-size:12px}
+  .drawer{left:8px;right:8px;bottom:8px;max-height:76vh}.grid{grid-template-columns:1fr}
+  .stop{min-width:310px;max-width:310px}.mapBox{height:340px}.menuPanel{width:84vw}.bottomHint{bottom:8px;font-size:12px;max-width:92vw}
+}
+</style>
+</head>
+<body>
+<div id="intro" class="intro"><div><div class="crest">🦅</div><h1>HOUGH HAWKS</h1><p class="muted">Road Trip USA · Build 011</p><button class="gold" onclick="enterGarage()">Enter the Garage</button></div></div>
+
+<div class="scene"></div>
+
+<div class="topBar">
+  <div class="topLeft">
+    <button class="small gold" onclick="startJourney()">🚚 Start Journey</button>
+    <div class="coachLine"><b>Coach Ben:</b> <span id="coachLine">Morning, Ben. The garage is ready.</span></div>
+  </div>
+  <div class="topRight">
+    <button class="small" onclick="toggleMenu()">Menu</button>
+    <button class="small" onclick="toggleSound()" id="soundBtn">Sound On</button>
+    <button class="small" onclick="save()">Save</button>
+  </div>
+</div>
+
+<div class="bottomHint">Use the Menu for Journal, Map, Backpack, Photos, Radio and Settings.</div>
+
+<aside id="menuPanel" class="menuPanel">
+  <button class="small" onclick="toggleMenu()">Close</button>
+  <h2>Garage Menu</h2>
+  <button onclick="startJourney();toggleMenu()">🚚 Start Today's Journey</button>
+  <button onclick="openDrawer('journal');toggleMenu()">📖 Journal</button>
+  <button onclick="openDrawer('map');toggleMenu()">🗺 Wall Map</button>
+  <button onclick="openDrawer('backpack');toggleMenu()">🎒 Backpack</button>
+  <button onclick="openDrawer('photos');toggleMenu()">📷 Photo Album</button>
+  <button onclick="openDrawer('radio');toggleMenu()">📻 Garage Radio</button>
+  <button onclick="openDrawer('truck');toggleMenu()">🚚 The Ranger</button>
+  <button onclick="toggleRain()">🌧 Rain on/off</button>
+</aside>
+
+<section id="drawer" class="drawer"></section>
+<div id="toast" class="toast"></div>
+
+<audio id="birds" src="audio-birds.mp3" loop preload="auto"></audio>
+<audio id="kettle" src="audio-kettle.wav" preload="auto"></audio>
+<audio id="engine" src="audio-engine.mp3" preload="auto"></audio>
+<audio id="rain" src="audio-rain.wav" loop preload="auto"></audio>
+<audio id="train" src="audio-train.wav" preload="auto"></audio>
+<audio id="wind" src="audio-wind.wav" preload="auto"></audio>
+<audio id="radio" src="radio-abba.mp3" loop preload="auto"></audio>
+
 <script>
 if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));}
-const KEY='houghHawksBuild010FoundationFix';
+const KEY='houghHawksBuild011CleanMenu';
 const stops=[
- {id:'dunes',title:'Indiana Dunes National Park',place:'Indiana',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Indiana%20Dunes%20National%20Park.jpg',fallback:'real-indiana-dunes.png',coach:'The best roads make room for a view.',facts:['Indiana Dunes has 15 miles of Lake Michigan shoreline.','The park has dunes, wetlands, prairies, rivers and forests.'],links:[['Official Park','https://www.nps.gov/indu/'],['Plan Visit','https://www.nps.gov/indu/planyourvisit/index.htm'],['Photo Source','https://commons.wikimedia.org/wiki/File:Indiana_Dunes_National_Park.jpg']]},
- {id:'bridge',title:'Roseman Covered Bridge',place:'Winterset, Iowa',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Roseman%20Covered%20Bridge%20of%20Madison%20County%2C%20Iowa.jpg',fallback:'real-covered-bridge.png',coach:'Old roads still have stories to tell.',facts:['The Roseman Covered Bridge was built in 1883.','Covered bridges protected timber structures from weather.'],links:[['Explore Bridges','https://www.google.com/maps/search/Roseman+Covered+Bridge'],['Learn More','https://en.wikipedia.org/wiki/Roseman_Covered_Bridge'],['Photo Source','https://commons.wikimedia.org/wiki/File:Roseman_Covered_Bridge_of_Madison_County,_Iowa.jpg']]},
- {id:'diner',title:'Route 66 Diner',place:'Albuquerque, New Mexico',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Route%2066%20diner.jpg',fallback:'real-small-town-diner.png',coach:'Tea first. Navigation second.',facts:['Diners became part of American road culture as car travel grew.','Small stops are often remembered more clearly than big destinations.'],links:[['Find Diners','https://www.google.com/maps/search/Route+66+Diner+Albuquerque'],['Roadside America','https://www.roadsideamerica.com/'],['Photo Source','https://commons.wikimedia.org/wiki/File:Route_66_diner.jpg']]},
- {id:'usaf',title:'National Museum of the U.S. Air Force',place:'Dayton, Ohio',img:'https://commons.wikimedia.org/wiki/Special:FilePath/National%20Museum%20of%20the%20United%20States%20Air%20Force.jpg',fallback:'real-usaf-museum.png',coach:'Worth a stop if you like machines with stories.',facts:['The museum is located near Dayton, Ohio.','It is the world’s largest military aviation museum, with more than 350 aerospace vehicles and missiles.'],links:[['Official Site','https://www.nationalmuseum.af.mil/'],['Plan Visit','https://www.nationalmuseum.af.mil/Visit/'],['Photo Source','https://commons.wikimedia.org/wiki/File:National_Museum_of_the_United_States_Air_Force.jpg']]},
- {id:'river',title:'Ohio River View',place:'Cincinnati riverfront',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Cincinnati%20River-front%20Skyline.jpg',fallback:'real-ohio-river.png',coach:'A river makes you slow down.',facts:['Cincinnati sits on the north bank of the Ohio River.','The river has long been important for transport, settlement and trade.'],links:[['Visit Cincy','https://www.visitcincy.com/'],['Freedom Center','https://freedomcenter.org/'],['Photo Source','https://commons.wikimedia.org/wiki/File:Cincinnati_River-front_Skyline.jpg']]},
- {id:'paycor',title:'Paycor Stadium',place:'Cincinnati, Ohio',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Cincinnati-paul-brown-stadium.jpg',fallback:'real-paycor-stadium.png',coach:'Bengals country. First proper stop.',facts:['Paycor Stadium is the home of the Cincinnati Bengals.','The stadium sits by the Ohio River in Cincinnati.'],links:[['Stadium Guide','https://www.bengals.com/stadium/'],['Stadium Tours','https://www.bengals.com/stadium/tours'],['Photo Source','https://commons.wikimedia.org/wiki/File:Cincinnati-paul-brown-stadium.jpg']]}];
-let state={entered:false,sound:true,rain:false,radio:false,location:'Hough Hawks HQ',journal:['<h3>Before every great journey...</h3><p>Someone turns the key.</p><p>The next page is waiting.</p>'],souvenirs:{map:true},longRoute:false,cincinnati:false,secret:false};
-function $(id){return document.getElementById(id)}function play(id,vol=.35){if(!state.sound)return;const a=$(id);if(!a)return;a.volume=vol;a.currentTime=0;a.play().catch(()=>{});}function loop(id,on,vol=.2){const a=$(id);if(!a)return;a.volume=vol;if(on&&state.sound){a.play().catch(()=>{})}else{a.pause();}}
-function enterGarage(){state.entered=true;save();$('intro').classList.add('hide');setTimeout(()=>{$('intro').style.display='none'},800);loop('birds',true,.12);setTimeout(()=>play('kettle',.18),650);if(state.radio)setTimeout(()=>loop('radio',true,.16),900);setRadioLabel();toast('Morning, Ben.');}
-function toggleMenu(){$('menuPanel').classList.toggle('show')}function closeDrawer(){$('drawer').classList.remove('show')}function openDrawer(type){const d=$('drawer');d.innerHTML=content(type);d.classList.add('show')}
-function content(type){if(type==='journal')return `<button class="small" onclick="closeDrawer()">Close</button><h1>Coach's Journal</h1><div class="journal">${state.journal.join('<hr>')}</div>`;if(type==='map')return `<button class="small" onclick="closeDrawer()">Close</button><h1>Wall Map</h1><div class="mapBox"><div class="route"></div><div class="pin" style="left:20%;top:55%">HQ</div><div class="pin" style="left:68%;top:48%">Cincinnati</div><div class="pin lock" style="left:62%;top:59%">Gettysburg</div><div class="pin lock" style="left:42%;top:43%">Rockies</div><div class="pin lock" style="left:22%;top:67%">California</div></div>`;if(type==='backpack')return `<button class="small" onclick="closeDrawer()">Close</button><h1>Backpack</h1><p class="muted">Memories, not points.</p><div class="grid">${items()}</div>`;if(type==='photos')return `<button class="small" onclick="closeDrawer()">Close</button><h1>Photo Album</h1><div class="scroll">${stopCards()}</div>`;if(type==='radio')return `<button class="small" onclick="closeDrawer()">Close</button><h1>📻 Garage Radio</h1><p class="muted">An old workshop radio sits on the shelf. Music makes the miles shorter.</p><div class="grid"><button class="gold" onclick="toggleRadio()">📻 Radio On / Off<br><span class="muted">${state.radio?'Currently playing':'Currently off'}</span></button><button onclick="play('train',.25)">🚂 Railroad Hour</button><button onclick="toggleRain()">🌧 Rain on the Roof</button><button onclick="steamKettle()">☕ Kettle</button></div>`;if(type==='truck')return `<button class="small" onclick="closeDrawer()">Close</button><h1>The Ranger</h1><p class="muted">She's not just transport. She's part of the journey.</p><div class="grid"><img src="truck-front.png" style="width:100%;border-radius:18px"><img src="truck-interior.png" style="width:100%;border-radius:18px"><img src="truck-rear.png" style="width:100%;border-radius:18px"></div>`;if(type==='journey')return `<button class="small" onclick="closeDrawer()">Close</button><h1>The First Mile</h1><p class="muted">The long way has started. Cincinnati can wait a little longer.</p><div class="mapBox"><div class="route"></div><div class="truckDot">🚚</div><div class="pin" style="left:20%;top:55%">HQ</div><div class="pin" style="left:68%;top:48%">Cincinnati</div><div class="pin lock" style="left:62%;top:59%">Gettysburg</div><div class="pin lock" style="left:42%;top:43%">Rockies</div></div><h2>Roadside Memories</h2><div class="scroll">${stopCards()}</div><button class="gold wide" onclick="arriveCincinnati()">🏈 Finish the day in Cincinnati</button>`;return '';}
+ {id:'dunes',title:'Indiana Dunes National Park',place:'Indiana',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Indiana%20Dunes%20National%20Park.jpg',fallback:'real-indiana-dunes.png',coach:'The best roads make room for a view.',facts:['Indiana Dunes has 15 miles of Lake Michigan shoreline.','The park has dunes, wetlands, prairies, rivers and forests.'],links:[['Official Park','https://www.nps.gov/indu/'],['Plan Visit','https://www.nps.gov/indu/planyourvisit/index.htm']]},
+ {id:'bridge',title:'Roseman Covered Bridge',place:'Winterset, Iowa',img:'real-covered-bridge.png',fallback:'real-covered-bridge.png',coach:'Old roads still have stories to tell.',facts:['The Roseman Covered Bridge was built in 1883.','Covered bridges protected timber structures from weather.'],links:[['Explore Bridges','https://www.google.com/maps/search/Roseman+Covered+Bridge'],['Learn More','https://en.wikipedia.org/wiki/Roseman_Covered_Bridge']]},
+ {id:'diner',title:'Route 66 Diner',place:'Albuquerque, New Mexico',img:'real-small-town-diner.png',fallback:'real-small-town-diner.png',coach:'Tea first. Navigation second.',facts:['Diners became part of American road culture as car travel grew.','Small stops are often remembered more clearly than big destinations.'],links:[['Find Diners','https://www.google.com/maps/search/Route+66+Diner+Albuquerque'],['Roadside America','https://www.roadsideamerica.com/']]},
+ {id:'usaf',title:'National Museum of the U.S. Air Force',place:'Dayton, Ohio',img:'https://commons.wikimedia.org/wiki/Special:FilePath/National%20Museum%20of%20the%20United%20States%20Air%20Force.jpg',fallback:'real-usaf-museum.png',coach:'Worth a stop if you like machines with stories.',facts:['The museum is located near Dayton, Ohio.','It is the world’s largest military aviation museum, with more than 350 aerospace vehicles and missiles.'],links:[['Official Site','https://www.nationalmuseum.af.mil/'],['Plan Visit','https://www.nationalmuseum.af.mil/Visit/']]},
+ {id:'river',title:'Ohio River View',place:'Cincinnati riverfront',img:'real-ohio-river.png',fallback:'real-ohio-river.png',coach:'A river makes you slow down.',facts:['Cincinnati sits on the north bank of the Ohio River.','The river has long been important for transport, settlement and trade.'],links:[['Visit Cincy','https://www.visitcincy.com/'],['Freedom Center','https://freedomcenter.org/']]},
+ {id:'paycor',title:'Paycor Stadium',place:'Cincinnati, Ohio',img:'real-paycor-stadium.png',fallback:'real-paycor-stadium.png',coach:'Bengals country. First proper stop.',facts:['Paycor Stadium is the home of the Cincinnati Bengals.','The stadium sits by the Ohio River in Cincinnati.'],links:[['Stadium Guide','https://www.bengals.com/stadium/'],['Stadium Tours','https://www.bengals.com/stadium/tours']]}
+];
+let state={entered:false,sound:true,rain:false,radio:false,location:'Hough Hawks HQ',journal:['<h3>Before every great journey...</h3><p>Someone turns the key.</p><p>The next page is waiting.</p>'],souvenirs:{map:true},longRoute:false,cincinnati:false};
+function $(id){return document.getElementById(id)}
+function play(id,vol=.35){if(!state.sound)return;const a=$(id);if(!a)return;a.volume=vol;a.currentTime=0;a.play().catch(()=>{});}
+function loop(id,on,vol=.2){const a=$(id);if(!a)return;a.volume=vol;if(on&&state.sound){a.play().catch(()=>{})}else{a.pause();}}
+function enterGarage(){state.entered=true;save();$('intro').classList.add('hide');setTimeout(()=>{$('intro').style.display='none'},800);loop('birds',true,.12);setTimeout(()=>play('kettle',.18),650);if(state.radio)setTimeout(()=>loop('radio',true,.16),900);toast('Morning, Ben.');}
+function toggleMenu(){$('menuPanel').classList.toggle('show')}
+function closeDrawer(){$('drawer').classList.remove('show')}
+function openDrawer(type){const d=$('drawer');d.innerHTML=content(type);d.classList.add('show')}
+function content(type){
+ if(type==='journal')return `<button class="small" onclick="closeDrawer()">Close</button><h1>Coach's Journal</h1><div class="journal">${state.journal.join('<hr>')}</div>`;
+ if(type==='map')return `<button class="small" onclick="closeDrawer()">Close</button><h1>Wall Map</h1><div class="mapBox"><div class="route"></div><div class="pin" style="left:20%;top:55%">HQ</div><div class="pin" style="left:68%;top:48%">Cincinnati</div><div class="pin lock" style="left:62%;top:59%">Gettysburg</div><div class="pin lock" style="left:42%;top:43%">Rockies</div><div class="pin lock" style="left:22%;top:67%">California</div></div>`;
+ if(type==='backpack')return `<button class="small" onclick="closeDrawer()">Close</button><h1>Backpack</h1><p class="muted">Memories, not points.</p><div class="grid">${items()}</div>`;
+ if(type==='photos')return `<button class="small" onclick="closeDrawer()">Close</button><h1>Photo Album</h1><div class="scroll">${stopCards()}</div>`;
+ if(type==='radio')return `<button class="small" onclick="closeDrawer()">Close</button><h1>📻 Garage Radio</h1><p class="muted">Music makes the miles shorter.</p><div class="grid"><button class="gold" onclick="toggleRadio()">📻 Radio On / Off<br><span class="muted">${state.radio?'Currently playing':'Currently off'}</span></button><button onclick="play('train',.25)">🚂 Railroad Hour</button><button onclick="toggleRain()">🌧 Rain on the Roof</button><button onclick="play('kettle',.22)">☕ Kettle</button></div>`;
+ if(type==='truck')return `<button class="small" onclick="closeDrawer()">Close</button><h1>The Ranger</h1><p class="muted">She's not just transport. She's part of the journey.</p><div class="grid"><img src="truck-front.png" style="width:100%;border-radius:18px"><img src="truck-interior.png" style="width:100%;border-radius:18px"><img src="truck-rear.png" style="width:100%;border-radius:18px"></div>`;
+ if(type==='journey')return `<button class="small" onclick="closeDrawer()">Close</button><h1>The First Mile</h1><p class="muted">The long way has started. Cincinnati can wait a little longer.</p><div class="mapBox"><div class="route"></div><div class="truckDot">🚚</div><div class="pin" style="left:20%;top:55%">HQ</div><div class="pin" style="left:68%;top:48%">Cincinnati</div><div class="pin lock" style="left:62%;top:59%">Gettysburg</div><div class="pin lock" style="left:42%;top:43%">Rockies</div></div><h2>Roadside Memories</h2><div class="scroll">${stopCards()}</div><button class="gold wide" onclick="arriveCincinnati()">🏈 Finish the day in Cincinnati</button>`;
+ return '';
+}
 function stopCards(){return stops.map(s=>`<div class="stop"><h2>${s.title}</h2><p class="muted">${s.place}</p><img src="${s.img}" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${s.fallback}'"><p><b>Coach Ben:</b> "${s.coach}"</p><ul>${s.facts.map(f=>`<li>${f}</li>`).join('')}</ul><div class="links">${s.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]}</a>`).join('')}</div></div>`).join('')}
 function items(){const arr=[['map','🗺️','Folded USA Map','Already waiting.'],['photo_dunes','🏞️','Indiana Dunes Photo','A real stop to explore.'],['photo_bridge','🌉','Roseman Bridge Photo','Roadside detour.'],['photo_diner','☕','Route 66 Diner Note','Small-town stop.'],['photo_usaf','✈️','Air Force Museum Note','Machines with stories.'],['photo_river','🌊','Ohio River View','Near Cincinnati.'],['photo_paycor','🏈','Paycor Stadium Photo','Bengals country.'],['cincinnati','🎟️','Bengals Heritage Ticket','Collected in Cincinnati.']];return arr.map(i=>`<div class="item ${state.souvenirs[i[0]]?'':'lock'}">${i[1]} <b>${i[2]}</b><br><span class="muted">${i[3]}</span></div>`).join('')}
 function startJourney(){state.longRoute=true;stops.forEach(s=>state.souvenirs['photo_'+s.id]=true);addJournalOnce('journey','<h3>Journey 001 · The Long Way</h3><p>The kettle had barely finished before the truck was ready.</p><p>We took the long way because the long way remembers more.</p>');play('engine',.32);setTimeout(()=>play('wind',.2),650);$('coachLine').textContent=state.radio?'Good soundtrack for the first mile.':'No rush. Let’s just take the first mile.';save();openDrawer('journey');toast('The long way begins.')}
 function arriveCincinnati(){state.location='Cincinnati';state.cincinnati=true;state.souvenirs.cincinnati=true;addJournalOnce('cincinnati','<h3>Cincinnati</h3><p>First proper stop: Bengals country.</p><p>Souvenir collected: Bengals Heritage Ticket.</p>');$('coachLine').textContent='First stop complete. The ticket goes on the shelf.';save();openDrawer('backpack');toast('Cincinnati pinned. Souvenir added.')}
-function addJournalOnce(k,e){if(!state['j_'+k]){state.journal.push(e);state['j_'+k]=true}}function steamKettle(){play('kettle',.22);toast('Tea first. America can wait another minute.')}function setRadioLabel(){if($('radioLabel'))$('radioLabel').textContent=state.radio?'📻 Garage Radio · On':'📻 Garage Radio'}function toggleRadio(){state.radio=!state.radio;loop('radio',state.radio,.18);setRadioLabel();$('coachLine').textContent=state.radio?'Music makes the miles shorter.':'Sometimes quiet is good too.';toast(state.radio?'The garage radio clicks on.':'The garage radio is off.');save();if($('drawer').classList.contains('show'))openDrawer('radio')}function toggleRain(){state.rain=!state.rain;document.body.classList.toggle('rain',state.rain);loop('rain',state.rain,.18);toast(state.rain?'Rain on the garage roof.':'Rain stopped.');save()}function showSecretPlaque(){state.secret=true;save();toast('Built because we care. May this always be a place you are happy to come back to.')}function toggleSound(){state.sound=!state.sound;if(!state.sound){['birds','rain','kettle','engine','train','wind','radio'].forEach(id=>$(id)?.pause())}else{loop('birds',true,.12);if(state.rain)loop('rain',true,.18);if(state.radio)loop('radio',true,.18)}$('soundBtn').textContent=state.sound?'Sound On':'Sound Off';save()}function save(){localStorage.setItem(KEY,JSON.stringify(state))}function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s)state={...state,...s,souvenirs:{...state.souvenirs,...(s.souvenirs||{})}}}catch(e){}}function toast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',3000)}
-load();setRadioLabel();save();
-</script></body></html>
+function addJournalOnce(k,e){if(!state['j_'+k]){state.journal.push(e);state['j_'+k]=true}}
+function toggleRadio(){state.radio=!state.radio;loop('radio',state.radio,.18);$('coachLine').textContent=state.radio?'Music makes the miles shorter.':'Sometimes quiet is good too.';toast(state.radio?'The garage radio clicks on.':'The garage radio is off.');save();if($('drawer').classList.contains('show'))openDrawer('radio')}
+function toggleRain(){state.rain=!state.rain;document.body.classList.toggle('rain',state.rain);loop('rain',state.rain,.18);toast(state.rain?'Rain on the garage roof.':'Rain stopped.');save()}
+function toggleSound(){state.sound=!state.sound;if(!state.sound){['birds','rain','kettle','engine','train','wind','radio'].forEach(id=>$(id)?.pause())}else{loop('birds',true,.12);if(state.rain)loop('rain',true,.18);if(state.radio)loop('radio',true,.18)}$('soundBtn').textContent=state.sound?'Sound On':'Sound Off';save()}
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s)state={...state,...s,souvenirs:{...state.souvenirs,...(s.souvenirs||{})}}}catch(e){}}
+function toast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',3000)}
+load();save();
+</script>
+</body></html>
