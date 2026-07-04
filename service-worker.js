@@ -1,5 +1,5 @@
-const CACHE_NAME='hough-hawks-build-002-the-road-begins';
-const FILES=["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png", "./coach-ben.png", "./garage-bg.png", "./map-bg.png", "./truck-front.png", "./truck-interior.png", "./truck-rear.png", "./audio-birds.mp3", "./audio-kettle.wav", "./audio-engine.mp3", "./audio-rain.wav", "./audio-train.wav", "./audio-wind.wav"];
+const CACHE_NAME='hough-hawks-build-004-clean-map';
+const FILES=["./", "./audio-birds.mp3", "./audio-engine.mp3", "./audio-kettle.wav", "./audio-rain.wav", "./audio-train.wav", "./audio-wind.wav", "./coach-ben.png", "./garage-bg.png", "./icon-192.png", "./icon-512.png", "./index.html", "./manifest.json", "./map-bg.png", "./map-clean.png", "./service-worker.js", "./stop-covered-bridge.png", "./stop-scenic-overlook.png", "./stop-small-diner.png", "./truck-front.png", "./truck-interior.png", "./truck-rear.png"];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(FILES).catch(()=>c.addAll(['./','./index.html','./manifest.json','./icon-192.png','./icon-512.png']))));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.map(k=>k!==CACHE_NAME?caches.delete(k):null))));self.clients.claim();});
 self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));});
