@@ -11,8 +11,13 @@
 <style>
 :root{--gold:#f8c646;--text:#f7fafc;--muted:#b9c6d7;--line:rgba(255,255,255,.16);--shadow:0 22px 65px rgba(0,0,0,.5)}
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;background:#07111f;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;overflow:hidden}
-.scene{position:fixed;inset:0;background:linear-gradient(180deg,rgba(7,17,31,.05),rgba(7,17,31,.46)),url("garage-real.png") center/cover no-repeat}
+html,body{min-height:100%;margin:0;background:#07111f;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;overflow-x:hidden;overflow-y:auto}
+.scene{
+  position:relative;
+  min-height:100dvh;
+  height:100dvh;
+  background:linear-gradient(180deg,rgba(7,17,31,.05),rgba(7,17,31,.46)),url("garage-real.png") center/cover no-repeat;
+}
 .scene::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 48%,transparent 0 42%,rgba(7,17,31,.20) 76%,rgba(7,17,31,.72) 100%);pointer-events:none}
 body.rain .scene::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(110deg,rgba(255,255,255,.10) 0 1px,transparent 1px 15px);opacity:.13;animation:rain .9s linear infinite;pointer-events:none}@keyframes rain{from{transform:translateY(-12px)}to{transform:translateY(12px)}}
 .intro{position:fixed;inset:0;background:#07111f;z-index:100;display:flex;align-items:center;justify-content:center;text-align:center;transition:.7s}.intro.hide{opacity:0;pointer-events:none}
@@ -40,7 +45,10 @@ button.gold{background:linear-gradient(160deg,#805d08,#2b2109)}button.small{min-
 .links a{color:#07111f;background:var(--gold);padding:8px 10px;border-radius:999px;text-decoration:none;font-weight:950;font-size:13px}
 .item{padding:14px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.08);min-height:82px}.item.lock{opacity:.45;filter:grayscale(1)}
 .toast{position:fixed;left:14px;right:14px;bottom:18px;margin:auto;max-width:780px;padding:14px 16px;border-radius:18px;background:rgba(8,16,29,.96);border:1px solid var(--line);display:none;z-index:90;font-weight:850;box-shadow:var(--shadow)}
+.spacer{height:22dvh}
 @media(max-width:800px){
+  html,body{overflow-y:auto}
+  .scene{min-height:115dvh;height:115dvh;background-position:center top}
   .topBar{top:8px;left:8px;right:8px}.topRight{gap:5px}.topLeft{gap:6px}
   .coachLine{max-width:calc(100vw - 155px);font-size:12px;padding:8px 9px;border-radius:16px}
   .small{font-size:12px;padding:8px 10px}.gold.small{max-width:70px;line-height:1.05}
@@ -51,9 +59,10 @@ button.gold{background:linear-gradient(160deg,#805d08,#2b2109)}button.small{min-
 </style>
 </head>
 <body>
-<div id="intro" class="intro"><div><div class="crest">🦅</div><h1>HOUGH HAWKS</h1><p class="muted">Road Trip USA · Build 012</p><button class="gold" onclick="enterGarage()">Enter the Garage</button></div></div>
+<div id="intro" class="intro"><div><div class="crest">🦅</div><h1>HOUGH HAWKS</h1><p class="muted">Road Trip USA · Build 013</p><button class="gold" onclick="enterGarage()">Enter the Garage</button></div></div>
 
 <div class="scene"></div>
+<div class="spacer"></div>
 
 <div class="topBar">
   <div class="topLeft">
@@ -96,14 +105,14 @@ button.gold{background:linear-gradient(160deg,#805d08,#2b2109)}button.small{min-
 
 <script>
 if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));}
-const KEY='houghHawksBuild012MobileClean';
+const KEY='houghHawksBuild013PhotosScrollFix';
 const stops=[
- {id:'dunes',title:'Indiana Dunes National Park',place:'Indiana',img:'real-indiana-dunes.png',coach:'The best roads make room for a view.',facts:['Indiana Dunes has 15 miles of Lake Michigan shoreline.','The park has dunes, wetlands, prairies, rivers and forests.'],links:[['Official Park','https://www.nps.gov/indu/'],['Plan Visit','https://www.nps.gov/indu/planyourvisit/index.htm']]},
- {id:'bridge',title:'Roseman Covered Bridge',place:'Winterset, Iowa',img:'real-covered-bridge.png',coach:'Old roads still have stories to tell.',facts:['The Roseman Covered Bridge was built in 1883.','Covered bridges protected timber structures from weather.'],links:[['Explore Bridges','https://www.google.com/maps/search/Roseman+Covered+Bridge'],['Learn More','https://en.wikipedia.org/wiki/Roseman_Covered_Bridge']]},
- {id:'diner',title:'Route 66 Diner',place:'Albuquerque, New Mexico',img:'real-small-town-diner.png',coach:'Tea first. Navigation second.',facts:['Diners became part of American road culture as car travel grew.','Small stops are often remembered more clearly than big destinations.'],links:[['Find Diners','https://www.google.com/maps/search/Route+66+Diner+Albuquerque'],['Roadside America','https://www.roadsideamerica.com/']]},
- {id:'usaf',title:'National Museum of the U.S. Air Force',place:'Dayton, Ohio',img:'real-usaf-museum.png',coach:'Worth a stop if you like machines with stories.',facts:['The museum is located near Dayton, Ohio.','It is the world’s largest military aviation museum, with more than 350 aerospace vehicles and missiles.'],links:[['Official Site','https://www.nationalmuseum.af.mil/'],['Plan Visit','https://www.nationalmuseum.af.mil/Visit/']]},
- {id:'river',title:'Ohio River View',place:'Cincinnati riverfront',img:'real-ohio-river.png',coach:'A river makes you slow down.',facts:['Cincinnati sits on the north bank of the Ohio River.','The river has long been important for transport, settlement and trade.'],links:[['Visit Cincy','https://www.visitcincy.com/'],['Freedom Center','https://freedomcenter.org/']]},
- {id:'paycor',title:'Paycor Stadium',place:'Cincinnati, Ohio',img:'real-paycor-stadium.png',coach:'Bengals country. First proper stop.',facts:['Paycor Stadium is the home of the Cincinnati Bengals.','The stadium sits by the Ohio River in Cincinnati.'],links:[['Stadium Guide','https://www.bengals.com/stadium/'],['Stadium Tours','https://www.bengals.com/stadium/tours']]}
+ {id:'dunes',title:'Indiana Dunes National Park',place:'Indiana',img:'https://upload.wikimedia.org/wikipedia/commons/2/2c/Indiana_Dunes_National_Park.jpg',fallback:'real-indiana-dunes.png',coach:'The best roads make room for a view.',facts:['Indiana Dunes has 15 miles of Lake Michigan shoreline.','The park has dunes, wetlands, prairies, rivers and forests.'],links:[['Official Park','https://www.nps.gov/indu/'],['Plan Visit','https://www.nps.gov/indu/planyourvisit/index.htm']]},
+ {id:'bridge',title:'Roseman Covered Bridge',place:'Winterset, Iowa',img:'https://upload.wikimedia.org/wikipedia/commons/1/1b/Roseman_Covered_Bridge_Winterset_Iowa.jpg',fallback:'real-covered-bridge.png',coach:'Old roads still have stories to tell.',facts:['The Roseman Covered Bridge was built in 1883.','Covered bridges protected timber structures from weather.'],links:[['Explore Bridges','https://www.google.com/maps/search/Roseman+Covered+Bridge'],['Learn More','https://en.wikipedia.org/wiki/Roseman_Covered_Bridge']]},
+ {id:'diner',title:'Route 66 Diner',place:'Albuquerque, New Mexico',img:'https://upload.wikimedia.org/wikipedia/commons/0/0a/66_Diner_Albuquerque_New_Mexico.jpg',fallback:'real-small-town-diner.png',coach:'Tea first. Navigation second.',facts:['Diners became part of American road culture as car travel grew.','Small stops are often remembered more clearly than big destinations.'],links:[['Find Diners','https://www.google.com/maps/search/Route+66+Diner+Albuquerque'],['Roadside America','https://www.roadsideamerica.com/']]},
+ {id:'usaf',title:'National Museum of the U.S. Air Force',place:'Dayton, Ohio',img:'https://upload.wikimedia.org/wikipedia/commons/8/88/National_Museum_of_the_United_States_Air_Force.jpg',fallback:'real-usaf-museum.png',coach:'Worth a stop if you like machines with stories.',facts:['The museum is located near Dayton, Ohio.','It is the world’s largest military aviation museum, with more than 350 aerospace vehicles and missiles.'],links:[['Official Site','https://www.nationalmuseum.af.mil/'],['Plan Visit','https://www.nationalmuseum.af.mil/Visit/']]},
+ {id:'river',title:'Ohio River View',place:'Cincinnati riverfront',img:'https://upload.wikimedia.org/wikipedia/commons/4/4b/Cincinnati-skyline-from-kentucky-shore-night.jpg',fallback:'real-ohio-river.png',coach:'A river makes you slow down.',facts:['Cincinnati sits on the north bank of the Ohio River.','The river has long been important for transport, settlement and trade.'],links:[['Visit Cincy','https://www.visitcincy.com/'],['Freedom Center','https://freedomcenter.org/']]},
+ {id:'paycor',title:'Paycor Stadium',place:'Cincinnati, Ohio',img:'https://upload.wikimedia.org/wikipedia/commons/9/97/Paycor_Stadium_2025.jpg',fallback:'real-paycor-stadium.png',coach:'Bengals country. First proper stop.',facts:['Paycor Stadium is the home of the Cincinnati Bengals.','The stadium sits by the Ohio River in Cincinnati.'],links:[['Stadium Guide','https://www.bengals.com/stadium/'],['Stadium Tours','https://www.bengals.com/stadium/tours']]}
 ];
 let state={entered:false,sound:true,rain:false,radio:false,location:'Hough Hawks HQ',journal:['<h3>Before every great journey...</h3><p>Someone turns the key.</p><p>The next page is waiting.</p>'],souvenirs:{map:true},longRoute:false,cincinnati:false};
 function $(id){return document.getElementById(id)}
@@ -123,7 +132,7 @@ function content(type){
  if(type==='journey')return `<button class="small" onclick="closeDrawer()">Close</button><h1>The First Mile</h1><p class="muted">The long way has started. Cincinnati can wait a little longer.</p><div class="mapBox"><div class="route"></div><div class="truckDot">🚚</div><div class="pin" style="left:20%;top:55%">HQ</div><div class="pin" style="left:68%;top:48%">Cincinnati</div><div class="pin lock" style="left:62%;top:59%">Gettysburg</div><div class="pin lock" style="left:42%;top:43%">Rockies</div></div><h2>Roadside Memories</h2><div class="scroll">${stopCards()}</div><button class="gold wide" onclick="arriveCincinnati()">🏈 Finish the day in Cincinnati</button>`;
  return '';
 }
-function stopCards(){return stops.map(s=>`<div class="stop"><h2>${s.title}</h2><p class="muted">${s.place}</p><img src="${s.img}"><p><b>Coach Ben:</b> "${s.coach}"</p><ul>${s.facts.map(f=>`<li>${f}</li>`).join('')}</ul><div class="links">${s.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]}</a>`).join('')}</div></div>`).join('')}
+function stopCards(){return stops.map(s=>`<div class="stop"><h2>${s.title}</h2><p class="muted">${s.place}</p><img src="${s.img}" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${s.fallback}'"><p><b>Coach Ben:</b> "${s.coach}"</p><ul>${s.facts.map(f=>`<li>${f}</li>`).join('')}</ul><div class="links">${s.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]}</a>`).join('')}</div></div>`).join('')}
 function items(){const arr=[['map','🗺️','Folded USA Map','Already waiting.'],['photo_dunes','🏞️','Indiana Dunes Photo','A real stop to explore.'],['photo_bridge','🌉','Roseman Bridge Photo','Roadside detour.'],['photo_diner','☕','Route 66 Diner Note','Small-town stop.'],['photo_usaf','✈️','Air Force Museum Note','Machines with stories.'],['photo_river','🌊','Ohio River View','Near Cincinnati.'],['photo_paycor','🏈','Paycor Stadium Photo','Bengals country.'],['cincinnati','🎟️','Bengals Heritage Ticket','Collected in Cincinnati.']];return arr.map(i=>`<div class="item ${state.souvenirs[i[0]]?'':'lock'}">${i[1]} <b>${i[2]}</b><br><span class="muted">${i[3]}</span></div>`).join('')}
 function startJourney(){state.longRoute=true;stops.forEach(s=>state.souvenirs['photo_'+s.id]=true);addJournalOnce('journey','<h3>Journey 001 · The Long Way</h3><p>The kettle had barely finished before the truck was ready.</p><p>We took the long way because the long way remembers more.</p>');play('engine',.32);setTimeout(()=>play('wind',.2),650);$('coachLine').textContent=state.radio?'Good soundtrack for the first mile.':'No rush. Let’s just take the first mile.';save();openDrawer('journey');toast('The long way begins.')}
 function arriveCincinnati(){state.location='Cincinnati';state.cincinnati=true;state.souvenirs.cincinnati=true;addJournalOnce('cincinnati','<h3>Cincinnati</h3><p>First proper stop: Bengals country.</p><p>Souvenir collected: Bengals Heritage Ticket.</p>');$('coachLine').textContent='First stop complete. The ticket goes on the shelf.';save();openDrawer('backpack');toast('Cincinnati pinned. Souvenir added.')}

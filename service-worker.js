@@ -1,4 +1,4 @@
-const CACHE_NAME='hough-hawks-build-012-mobile-clean';
+const CACHE_NAME='hough-hawks-build-013-photos-scroll-fix';
 const FILES=["./", "./coach-ben.png", "./garage-bg.png", "./garage-real.png", "./icon-192.png", "./icon-512.png", "./index.html", "./manifest.json", "./map-clean.png", "./radio-abba.mp3", "./real-covered-bridge.png", "./real-indiana-dunes.png", "./real-ohio-river.png", "./real-paycor-stadium.png", "./real-small-town-diner.png", "./real-usaf-museum.png", "./service-worker.js", "./stop-01-overlook.png", "./stop-02-covered-bridge.png", "./stop-03-diner.png", "./stop-04-train.png", "./stop-05-river.png", "./stop-06-stadium.png", "./truck-front.png", "./truck-interior.png", "./truck-rear.png"];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(FILES).catch(()=>c.addAll(['./','./index.html','./manifest.json','./icon-192.png','./icon-512.png']))));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.map(k=>k!==CACHE_NAME?caches.delete(k):null))));self.clients.claim();});
