@@ -6,7 +6,7 @@
   "display": "standalone",
   "background_color": "#07111f",
   "theme_color": "#07111f",
-  "description": "V0.18 - Bengals Game Day Loop",
+  "description": "V0.18.1 - Bengals Cache Fix",
   "icons": [
     {
       "src": "icon-192.png",

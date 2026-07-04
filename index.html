@@ -82,6 +82,7 @@ button.small{min-height:auto;padding:10px 12px;border-radius:999px;font-size:13p
     </div>
   </section>
 
+  <div id="versionBadge" style="position:absolute;right:10px;top:64px;z-index:40;background:rgba(248,198,70,.92);color:#07111f;border-radius:999px;padding:6px 10px;font-weight:950;font-size:12px;box-shadow:0 8px 20px rgba(0,0,0,.35)">V0.18.1</div>
   <footer class="status">
     <div>🎵 <b>Garage Radio</b> &nbsp; <span id="radioStatus">Off</span></div>
     <div>🌧️ <b>18°C</b> &nbsp; Light Rain</div>
@@ -123,13 +124,20 @@ button.small{min-height:auto;padding:10px 12px;border-radius:999px;font-size:13p
 <audio id="staticRadio" src="radio-static.wav" loop preload="auto"></audio>
 
 <script>
-if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));}
+if('serviceWorker'in navigator){
+window.addEventListener('load',()=>{
+  navigator.serviceWorker.register('./service-worker.js?v=0181').then(reg=>{
+    reg.update();
+    if(reg.waiting){reg.waiting.postMessage({type:'SKIP_WAITING'});}
+  }).catch(()=>{});
+});
+}
 const SAVE_KEY='houghHawksSave';
 const OLD_KEYS=['houghHawksV014BigUiUpdate','houghHawksBuild013PhotosScrollFix','houghHawksBuild012MobileClean'];
 const APP_VERSION=17;
 const radioStations={
   abba:{name:'ABBA Garage Radio',freq:'89.7 HH FM',audio:'radio',line:'Music makes the miles shorter.'},
-  bengals:{name:'Bengals Game Day',freq:'97.1 JUNGLE',audio:'bengalsRadio',line:'Bengals football is in the air today.'},
+  bengals:{name:'Bengals Game Day',freq:'97.1 JUNGLE',audio:'bengalsRadio',line:'Bengals Game Day: Who Dey chant and game-impact loop.'},
   road:{name:'Road Rumble',freq:'66.0 ROUTE',audio:'roadRadio',line:'Tyres on tarmac. That is a proper soundtrack.'},
   rain:{name:'Rain on the Roof',freq:'18.0 GARAGE',audio:'rain',line:'Rain on the garage roof. No rush today.'},
   railroad:{name:'Railroad Hour',freq:'45.5 TRACK',audio:'train',line:'A train passes somewhere beyond the road.'},
